@@ -1,6 +1,6 @@
 ﻿namespace Business_Layer.Abstract
 {
-    internal interface IGenericService<T>
+    public interface IGenericService<T>
     {
         void AddT(T t);
         void DeleteT(T t);
