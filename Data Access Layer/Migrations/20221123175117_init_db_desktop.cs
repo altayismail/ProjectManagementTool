@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data_Access_Layer.Migrations
 {
-    public partial class first_table_design : Migration
+    public partial class init_db_desktop : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

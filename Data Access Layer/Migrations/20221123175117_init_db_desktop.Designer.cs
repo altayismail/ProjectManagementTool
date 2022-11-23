@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data_Access_Layer.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20221111122025_first_table_design")]
-    partial class first_table_design
+    [Migration("20221123175117_init_db_desktop")]
+    partial class init_db_desktop
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
