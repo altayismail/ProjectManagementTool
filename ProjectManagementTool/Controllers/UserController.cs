@@ -37,7 +37,7 @@ namespace ProjectManagementTool.Controllers
             }
             else
             {
-                ViewBag.Message = "Hatalı giriş bilgileri, lütfen tekrar deneyiniz.";
+                ViewBag.Message = "Invalid email or password, try again.";
                 return View();
             }
         }
