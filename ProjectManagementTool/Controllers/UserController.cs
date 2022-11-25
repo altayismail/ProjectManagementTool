@@ -54,9 +54,15 @@ namespace ProjectManagementTool.Controllers
         }
 
         [HttpGet]
-        public IActionResult UserUpdate(int id)
+        public IActionResult UserUpdate()
         {
+            int id = userManager.GetAllQuery().Where(x => x.Email == User.Identity.Name).Single().UserId;
             var user = userManager.GetQueryById(id);
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = "User cannot be found.";
+                return RedirectToAction("Index", "Home");
+            }
             return View(user);
         }
         [HttpPost]
@@ -74,7 +80,7 @@ namespace ProjectManagementTool.Controllers
             if (validationResult.IsValid)
             {
                 userManager.UpdateT(user);
-                return RedirectToAction("GetKullanıcı");
+                return RedirectToAction("Index","Home");
             }
             else
             {

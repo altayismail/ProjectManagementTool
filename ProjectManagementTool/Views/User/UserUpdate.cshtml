@@ -7,15 +7,12 @@
 }
 
 <!-- Top header -->
-<header class="navbar-toggler p-4">
-    <p class="w3-left text-dark font-weight-bolder" style="font-size:20px">Kullanıcı Düzenleme Sayfası</p>
-    <p class="w3-right text-dark font-weight-normal" style="font-size:20px">
-        <i class="icon-calendar mr-2"></i>@DateTime.Now.ToLongDateString()
-    </p>
+<header class="navbar-toggler">
+    <p class="w3-left text-dark font-weight-bolder" style="font-size:20px">Account Settings</p>
 </header>
 <hr />
 
-@using (Html.BeginForm("UseUpdate", "User", FormMethod.Post))
+@using (Html.BeginForm("UserUpdate", "User", FormMethod.Post))
 {
     @Html.HiddenFor(x => x.UserId, new { @class = "form-control" })
     @Html.ValidationMessageFor(x => x.UserId, "", new { @class = "text-danger" })
@@ -37,7 +34,7 @@
     @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
     <br />
     @Html.Label("Title")
-    @Html.TextBoxFor(x => x.Title, new { @class = "form-control", @onkeypress="return /[0-9]/i.test(event.key)" })
+    @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
     @Html.ValidationMessageFor(x => x.Title, "", new { @class = "text-danger" })
     <br />
     @if (ViewBag.ErrorMessage != null)
@@ -46,6 +43,6 @@
             @ViewBag.ErrorMessage
         </div>
     }
-    <button id="UpdateButton" onclick="return confirm('You are going to update your informations, are you sure?');" class="btn btn-warning mb-3">Kaydet<i class="icon-save ml-2"></i></button>
+    <button id="UpdateButton" onclick="return confirm('You are going to update your informations, are you sure?');" class="btn btn-warning mb-3">Update<i class="icon-save ml-2"></i></button>
 }
 
