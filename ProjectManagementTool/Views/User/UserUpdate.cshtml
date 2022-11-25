@@ -1,0 +1,51 @@
+﻿@using Entity_Layer.Concrete
+@model User
+
+@{
+    ViewData["Title"] = "Update User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Top header -->
+<header class="navbar-toggler p-4">
+    <p class="w3-left text-dark font-weight-bolder" style="font-size:20px">Kullanıcı Düzenleme Sayfası</p>
+    <p class="w3-right text-dark font-weight-normal" style="font-size:20px">
+        <i class="icon-calendar mr-2"></i>@DateTime.Now.ToLongDateString()
+    </p>
+</header>
+<hr />
+
+@using (Html.BeginForm("UseUpdate", "User", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.UserId, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.UserId, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Name")
+    @Html.TextBoxFor(x => x.Firstname, new { @class = "form-control", @onkeypress="return /[A-Za-z]/i.test(event.key)" })
+    @Html.ValidationMessageFor(x => x.Firstname, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Surname")
+    @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", @onkeypress="return /[A-Za-z]/i.test(event.key)" })
+    @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Email")
+    @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Password")
+    @Html.TextBoxFor(x => x.Password, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Title")
+    @Html.TextBoxFor(x => x.Title, new { @class = "form-control", @onkeypress="return /[0-9]/i.test(event.key)" })
+    @Html.ValidationMessageFor(x => x.Title, "", new { @class = "text-danger" })
+    <br />
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+    <button id="UpdateButton" onclick="return confirm('You are going to update your informations, are you sure?');" class="btn btn-warning mb-3">Kaydet<i class="icon-save ml-2"></i></button>
+}
+

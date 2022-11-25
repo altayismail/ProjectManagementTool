@@ -5,12 +5,17 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Data_Access_Layer.Concrete;
 using Entity_Layer.Concrete;
+using Business_Layer.Concrete;
+using Data_Access_Layer.EntityFramework;
+using Business_Layer.ValidationRules;
+using FluentValidation.Results;
 
 namespace ProjectManagementTool.Controllers
 {
     [AllowAnonymous]
     public class UserController : Controller
     {
+        UserManager userManager = new UserManager(new EFUserRepo());
         public IActionResult UserLogin()
         {
             return View();
@@ -46,6 +51,39 @@ namespace ProjectManagementTool.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult UserUpdate(int id)
+        {
+            var user = userManager.GetQueryById(id);
+            return View(user);
+        }
+        [HttpPost]
+        public IActionResult UserUpdate(User user)
+        {
+            UserValidator userValidator = new UserValidator();
+            ValidationResult validationResult = userValidator.Validate(user);
+
+            if (userManager.GetAllQuery().Any(x => x.Email == user.Email))
+            {
+                ViewBag.ErrorMessage = "Bu emaile sahip başka bir kullanıcı bulunmaktadır.";
+                return View();
+            }
+
+            if (validationResult.IsValid)
+            {
+                userManager.UpdateT(user);
+                return RedirectToAction("GetKullanıcı");
+            }
+            else
+            {
+                foreach (var item in validationResult.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+            return View();
         }
     }
 }
