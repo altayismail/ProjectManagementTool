@@ -66,12 +66,55 @@
 
     .dropdown:hover .dropbtn {background-color: 3e8e41#;}
     </style>
+    <style>
+        /* Style the links inside the sidenav */
+        #mySidenav a {
+            position: absolute; /* Position them relative to the browser window */
+            left: -150px; /* Position them outside of the screen */
+            transition: 0.3s; /* Add transition on hover */
+            padding: 15px; /* 15px padding */
+            width: 200px; /* Set a specific width */
+            text-decoration: none; /* Remove underline */
+            font-size: 20px; /* Increase font size */
+            color: white; /* White text color */
+            border-radius: 0 5px 5px 0; /* Rounded corners on the top right and bottom right side */
+            margin-top: 65px;
+        }
+
+            #mySidenav a:hover {
+                left: 0; /* On mouse-over, make the elements appear as they should */
+            }
+
+        /* The about link: 20px from the top with a green background */
+        #projects {
+            top: 20px;
+            background-color: #04AA6D;
+            margin-bottom:1px;
+        }
+
+        #testcases {
+            top: 90px;
+            background-color: #2196F3; /* Blue */
+            margin-bottom: 1px;
+        }
+
+        #testsets {
+            top: 160px;
+            background-color: #f44336; /* Red */
+            margin-bottom: 1px;
+        }
+    </style>
 </head>
 <body>
     <!--Main Navigation-->
     <header>
         <!-- Sidebar -->
-        <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white" style="width:300px;">
+        <div id="mySidenav" class="sidenav"">
+            <a href="#" id="projects">Projects</a>
+            <a href="#" id="testcases">Test Cases</a>
+            <a href="#" id="testsets">Test Sets</a>
+        </div>
+        @*<nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white" style="width:260px;">
             <div class="position-sticky">
                 <div class="list-group list-group-flush mx-3 mt-4">
                     <a href="/Project" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
@@ -85,7 +128,7 @@
                     </a>
                 </div>
             </div>
-        </nav>
+        </nav>*@
         <!-- Sidebar -->
         <!-- Navbar -->
         <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
@@ -99,12 +142,12 @@
 
                 <!-- Brand -->
                 <a class="navbar-brand pt-1" href="/Home/Index">
-                    <h4>Project Management Tool</h4>
+                    <p class="card-header fw-lighter text-success">Project Management Tool</p>
                 </a>
                 <!-- Search form -->
                 <form class="d-none d-md-flex input-group w-auto my-auto">
                     <input autocomplete="off" type="search" class="form-control rounded"
-                           placeholder='Search' style="min-width: 280px;" />
+                           placeholder='Search' />
                     <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
                 </form>
 
@@ -113,7 +156,7 @@
                     <!-- Notification dropdown -->
                     <li class="nav-item dropdown">
                         <div class="dropdown nav-link dropdown-toggle hidden-arrow" style="float:right;">
-                            <i class="fas fa-bell" style='font-size:30px'></i>
+                            <i class="fas fa-bell" style='font-size:24px'></i>
                             <span class="badge rounded-pill badge-notification bg-danger">1</span>
                             <div class="dropdown-content mt-3 bg-white" style="right:0;">
                                 <a>Notification 1</a>
@@ -124,7 +167,7 @@
                     <!-- User Icon dropdown--> 
                     <li class="nav-item dropdown">
                         <div class="dropdown nav-link dropdown-toggle hidden-arrow" style="float:right;">
-                            <a class="dropbtn" style="color:inherit;"><i class='fas fa-user-circle' style='font-size:30px;'></i></a>
+                            <a class="dropbtn" style="color:inherit;"><i class='fas fa-user-circle' style='font-size:24px;'></i></a>
                             <div class="dropdown-content mt-3 bg-white" style="right:0;">
                                 <a href="/User/UserUpdate">Account Settings</a>
                                 <a href="/User/UserLogout">Logout</a>
@@ -139,7 +182,7 @@
     </header>
     <!--Main Navigation-->
     <!--Main layout-->
-    <main style="margin-top: 58px; margin-left:310px;">
+    <main style="margin-top: 58px;">
         <div class="container pt-4">
             @RenderBody()
         </div>
