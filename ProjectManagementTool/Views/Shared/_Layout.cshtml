@@ -71,16 +71,16 @@
     <!--Main Navigation-->
     <header>
         <!-- Sidebar -->
-        <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+        <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white" style="width:300px;">
             <div class="position-sticky">
                 <div class="list-group list-group-flush mx-3 mt-4">
-                    <a href="#" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
+                    <a href="/Project" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
                         <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Project</span>
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action py-2 ripple active">
+                    <a href="/TestCase" class="list-group-item list-group-item-action py-2 ripple">
                         <i class="fas fa-chart-area fa-fw me-3"></i><span>Test Cases</span>
                     </a>
-                    <a href="#" class="list-group-item list-group-item-action py-2 ripple">
+                    <a href="/TestSet" class="list-group-item list-group-item-action py-2 ripple">
                         <i class="fas fa-lock fa-fw me-3"></i><span>Test Sets</span>
                     </a>
                 </div>
@@ -130,14 +130,19 @@
                         </ul>
                     </li>
                     <!-- User Icon dropdown-->
-                    <li class="nav-item dropdown">                      
-                          <div class="dropdown" style="float:right";>
-                        <button class="dropbtn btn-white"><i class='fas fa-user-circle' style='font-size:30px'></i></button>
-                            <div class="dropdown-content" style="right:0">
-                                <a href="User/UserUpdate">Account Settings</a>
-                                <a href="User/UserLogout">Logout</a>
-                            </div>
-                        </div>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink"
+                           role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                            <i class='fas fa-user-circle' style='font-size:30px'></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                            <li>
+                                <a class="dropdown-item" href="/User/UserUpdate">User Settings</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/User/UserLogout">Logout</a>
+                            </li>
+                        </ul>
                     </li>
 
                 </ul>
@@ -148,7 +153,7 @@
     </header>
     <!--Main Navigation-->
     <!--Main layout-->
-    <main style="margin-top: 58px;">
+    <main style="margin-top: 58px; margin-left:310px;">
         <div class="container pt-4">
             @RenderBody()
         </div>
