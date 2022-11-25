@@ -2,7 +2,7 @@
 @model User
 
 @{
-    ViewData["Title"] = "Update User";
+    ViewData["Title"] = "Account Settings";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -26,7 +26,7 @@
     @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "text-danger" })
     <br />
     @Html.Label("Email")
-    @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
+    @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @readonly = "readonly" })
     @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })
     <br />
     @Html.Label("Password")

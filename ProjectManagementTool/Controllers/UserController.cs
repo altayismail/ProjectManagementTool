@@ -35,8 +35,10 @@ namespace ProjectManagementTool.Controllers
                 {
                     new Claim(ClaimTypes.Name, _user.Email)
                 };
+
                 var userIndetity = new ClaimsIdentity(claims, "a");
                 ClaimsPrincipal principal = new ClaimsPrincipal(userIndetity);
+
                 await HttpContext.SignInAsync(principal);
                 return RedirectToAction("Index", "Home");
             }
@@ -70,12 +72,6 @@ namespace ProjectManagementTool.Controllers
         {
             UserValidator userValidator = new UserValidator();
             ValidationResult validationResult = userValidator.Validate(user);
-
-            if (userManager.GetAllQuery().Any(x => x.Email == user.Email))
-            {
-                ViewBag.ErrorMessage = "Bu emaile sahip başka bir kullanıcı bulunmaktadır.";
-                return View();
-            }
 
             if (validationResult.IsValid)
             {

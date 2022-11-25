@@ -31,41 +31,41 @@
         }
     </style>
     <style>
-.dropbtn {
-  background-color: 3e8e41#;
-  color: white;
-  padding: 16px;
-  font-size: 16px;
-  border: none;
-}
+    .dropbtn {
+      background-color: 3e8e41#;
+      color: white;
+      padding: 16px;
+      font-size: 16px;
+      border: none;
+    }
 
-.dropdown {
-  position: relative;
-  display: inline-block;
-}
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: f1f1f1#;
-  min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-}
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: f1f1f1#;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
 
-.dropdown-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-}
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
 
-.dropdown-content a:hover {background-color: #ddd;}
+    .dropdown-content a:hover {background-color: #ddd;}
 
-.dropdown:hover .dropdown-content {display: block;}
+    .dropdown:hover .dropdown-content {display: block;}
 
-.dropdown:hover .dropbtn {background-color: 3e8e41#;}
-</style>
+    .dropdown:hover .dropbtn {background-color: 3e8e41#;}
+    </style>
 </head>
 <body>
     <!--Main Navigation-->
@@ -75,13 +75,13 @@
             <div class="position-sticky">
                 <div class="list-group list-group-flush mx-3 mt-4">
                     <a href="/Project" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-                        <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>Project</span>
+                        <i class="fas fa-tachometer-alt fa-fw me-3 text-success fw-bold"></i><span class="text-black">Project</span>
                     </a>
                     <a href="/TestCase" class="list-group-item list-group-item-action py-2 ripple">
-                        <i class="fas fa-chart-area fa-fw me-3"></i><span>Test Cases</span>
+                        <i class="fas fa-chart-area fa-fw me-3 text-success fw-bold"></i><span class="text-black">Test Cases</span>
                     </a>
                     <a href="/TestSet" class="list-group-item list-group-item-action py-2 ripple">
-                        <i class="fas fa-lock fa-fw me-3"></i><span>Test Sets</span>
+                        <i class="fas fa-lock fa-fw me-3 text-success fw-bold"></i><span class="text-black">Test Sets</span>
                     </a>
                 </div>
             </div>
@@ -98,7 +98,7 @@
                 </button>
 
                 <!-- Brand -->
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand pt-1" href="/Home/Index">
                     <h4>Project Management Tool</h4>
                 </a>
                 <!-- Search form -->
@@ -112,32 +112,25 @@
                 <ul class="navbar-nav ms-auto d-flex flex-row">
                     <!-- Notification dropdown -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink"
-                           role="button" data-mdb-toggle="dropdown" aria-expanded="false">
+                        <div class="dropdown nav-link dropdown-toggle hidden-arrow" style="float:right;">
                             <i class="fas fa-bell" style='font-size:30px'></i>
                             <span class="badge rounded-pill badge-notification bg-danger">1</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                            <li>
-                                <a class="dropdown-item" href="#">Some news</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Another news</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">Something else here</a>
-                            </li>
-                        </ul>
+                            <div class="dropdown-content mt-3 bg-white" style="right:0;">
+                                <a>Notification 1</a>
+                                <a>Notification 2</a>
+                            </div>
+                        </div>
                     </li>
                     <!-- User Icon dropdown--> 
-                   <div class="dropdown" style="float:right;">
-                         <a class="dropbtn btn-white"><i class='fas fa-user-circle' style='font-size:30px'></i> </a>
-                        <div class="dropdown-content" style="right:0;">
-                            <a href="User/UserUpdate">Account Settings</a>
-                            <a href="User/UserLogout">Logout</a>
+                    <li class="nav-item dropdown">
+                        <div class="dropdown nav-link dropdown-toggle hidden-arrow" style="float:right;">
+                            <a class="dropbtn" style="color:inherit;"><i class='fas fa-user-circle' style='font-size:30px;'></i></a>
+                            <div class="dropdown-content mt-3 bg-white" style="right:0;">
+                                <a href="/User/UserUpdate">Account Settings</a>
+                                <a href="/User/UserLogout">Logout</a>
+                            </div>
                         </div>
-                        </div>
-
+                    </li>
                 </ul>
             </div>
             <!-- Container wrapper -->
