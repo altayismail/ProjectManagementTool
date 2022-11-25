@@ -30,6 +30,42 @@
         z-index: 600;
         }
     </style>
+    <style>
+.dropbtn {
+  background-color: 3e8e41#;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: f1f1f1#;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: 3e8e41#;}
+</style>
 </head>
 <body>
     <!--Main Navigation-->
@@ -94,19 +130,14 @@
                         </ul>
                     </li>
                     <!-- User Icon dropdown-->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink"
-                           role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                            <i class='fas fa-user-circle' style='font-size:30px'></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                            <li>
-                                <a class="dropdown-item" href="/User/UserUpdate">User Settings</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="/User/UserLogout">Logout</a>
-                            </li>
-                        </ul>
+                    <li class="nav-item dropdown">                      
+                          <div class="dropdown" style="float:right";>
+                        <button class="dropbtn btn-white"><i class='fas fa-user-circle' style='font-size:30px'></i></button>
+                            <div class="dropdown-content" style="right:0">
+                                <a href="User/UserUpdate">Account Settings</a>
+                                <a href="User/UserLogout">Logout</a>
+                            </div>
+                        </div>
                     </li>
 
                 </ul>
