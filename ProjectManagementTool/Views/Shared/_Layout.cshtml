@@ -129,21 +129,14 @@
                             </li>
                         </ul>
                     </li>
-                    <!-- User Icon dropdown-->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link me-3 me-lg-0 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink"
-                           role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                            <i class='fas fa-user-circle' style='font-size:30px'></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                            <li>
-                                <a class="dropdown-item" href="/User/UserUpdate">User Settings</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="/User/UserLogout">Logout</a>
-                            </li>
-                        </ul>
-                    </li>
+                    <!-- User Icon dropdown--> 
+                   <div class="dropdown" style="float:right;">
+                         <a class="dropbtn btn-white"><i class='fas fa-user-circle' style='font-size:30px'></i> </a>
+                        <div class="dropdown-content" style="right:0;">
+                            <a href="User/UserUpdate">Account Settings</a>
+                            <a href="User/UserLogout">Logout</a>
+                        </div>
+                        </div>
 
                 </ul>
             </div>
