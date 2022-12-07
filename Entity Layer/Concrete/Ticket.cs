@@ -6,14 +6,16 @@ namespace Entity_Layer.Concrete
     {
         [Key]
         public int TicketId { get; set; }
+        public string? Title { get; set; }
 
         public int AssignedId { get; set; }
         public User? AssignedUser { get; set; }
 
         public bool IsTester { get; set; }
-        public string Tester { get; set; }
+        public string? Tester { get; set; }
 
         public int Priority { get; set; }
+        public DateTime CreatedTime { get; set; }
         public DateTime EstimatedTime { get; set; }
         public string? Description { get; set; }
         public string? Reporter{ get; set; }

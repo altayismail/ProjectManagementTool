@@ -105,44 +105,23 @@
         }
     </style>
 </head>
-<body>
+<body style="overflow-x:scroll;">
     <!--Main Navigation-->
     <header>
         <!-- Sidebar -->
-        <div id="mySidenav" class="sidenav"">
-            <a href="#" id="projects">Projects</a>
+        <div id="mySidenav" class="sidenav" style="z-index:5; position:relative;">
+            <a href=/Column/GetColumns id="projects">Project</a>
             <a href="#" id="testcases">Test Cases</a>
             <a href="#" id="testsets">Test Sets</a>
         </div>
-        @*<nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white" style="width:260px;">
-            <div class="position-sticky">
-                <div class="list-group list-group-flush mx-3 mt-4">
-                    <a href="/Project" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-                        <i class="fas fa-tachometer-alt fa-fw me-3 text-success fw-bold"></i><span class="text-black">Project</span>
-                    </a>
-                    <a href="/TestCase" class="list-group-item list-group-item-action py-2 ripple">
-                        <i class="fas fa-chart-area fa-fw me-3 text-success fw-bold"></i><span class="text-black">Test Cases</span>
-                    </a>
-                    <a href="/TestSet" class="list-group-item list-group-item-action py-2 ripple">
-                        <i class="fas fa-lock fa-fw me-3 text-success fw-bold"></i><span class="text-black">Test Sets</span>
-                    </a>
-                </div>
-            </div>
-        </nav>*@
         <!-- Sidebar -->
         <!-- Navbar -->
-        <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+        <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-dark fixed-top">
             <!-- Container wrapper -->
             <div class="container-fluid">
-                <!-- Toggle button -->
-                <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu"
-                        aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
-                </button>
-
                 <!-- Brand -->
-                <a class="navbar-brand pt-1" href="/Home/Index">
-                    <p class="card-header fw-lighter text-success">Project Management Tool</p>
+                <a class="nav-brand text-white" style="font-size:24px;font-family:Arial, Helvetica, sans-serif; text-decoration:none; margin-right:25px; margin-left:25px;" href="/Home/Index">
+                    <i class="fa fa-check" style="font-size:24px; margin-right:15px;"></i>Test Management Tool
                 </a>
                 <!-- Search form -->
                 <form class="d-none d-md-flex input-group w-auto my-auto">
@@ -151,26 +130,42 @@
                     <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
                 </form>
 
+            @{
+                if(ViewData["CheckColumnButton"] == "true")
+                {
+                       <a class="btn btn-success text-white" href="/Column/CreateColumn" style="margin-left:25px;">
+                        Add Column
+                    </a>
+                }
+
+                    if (ViewData["CheckTicketButton"] == "true")
+                    {
+                        <a class="btn btn-primary text-white" href="/Ticket/CreateTicket" style="margin-left:25px;">
+                            Add Ticket
+                        </a>
+                    }
+            }
+
                 <!-- Right links -->
                 <ul class="navbar-nav ms-auto d-flex flex-row">
                     <!-- Notification dropdown -->
                     <li class="nav-item dropdown">
-                        <div class="dropdown nav-link dropdown-toggle hidden-arrow" style="float:right;">
-                            <i class="fas fa-bell" style='font-size:24px'></i>
+                        <div class="dropdown nav-link dropdown-toggle hidden-arrow text-white" style="float:right;">
+                            <i class="fas fa-bell text-white" style='font-size:24px'></i>
                             <span class="badge rounded-pill badge-notification bg-danger">1</span>
-                            <div class="dropdown-content mt-3 bg-white" style="right:0;">
-                                <a>Notification 1</a>
-                                <a>Notification 2</a>
+                            <div class="dropdown-content bg-dark mt-1" style="right:0;">
+                                <a class="text-white" id="NO">Notification 1</a>
+                                <a class="text-white" id="NT">Notification 2</a>
                             </div>
                         </div>
                     </li>
                     <!-- User Icon dropdown--> 
                     <li class="nav-item dropdown">
-                        <div class="dropdown nav-link dropdown-toggle hidden-arrow" style="float:right;">
-                            <a class="dropbtn" style="color:inherit;"><i class='fas fa-user-circle' style='font-size:24px;'></i></a>
-                            <div class="dropdown-content mt-3 bg-white" style="right:0;">
-                                <a href="/User/UserUpdate">Account Settings</a>
-                                <a href="/User/UserLogout">Logout</a>
+                        <div class="dropdown nav-link dropdown-toggle hidden-arrow text-white" style="float:right;">
+                            <a class="dropbtn" style="color:inherit;"><i class='fas fa-user-circle text-white' style='font-size:24px;'></i></a>
+                            <div class="dropdown-content bg-dark mt-1" style="right:0;">
+                                <a class="text-white" id="AS" href="/User/UserUpdate" >Account Settings</a>
+                                <a class="text-white" id="UL" href="/User/UserLogout">Logout</a>
                             </div>
                         </div>
                     </li>
@@ -183,12 +178,12 @@
     <!--Main Navigation-->
     <!--Main layout-->
     <main style="margin-top: 58px;">
-        <div class="container pt-4">
+        <div class="container pt-4 p-5">
             @RenderBody()
         </div>
     </main>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer text-muted bg-white">
         <div class="container">
             <p class="text-end ml-5">&copy; 2022 - Project Management Tool</p>
         </div>

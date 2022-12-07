@@ -1,0 +1,59 @@
+﻿@using Entity_Layer.Concrete
+@model List<Column>
+
+@{
+    ViewData["Title"] = "Board";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Ticket> tickets = ViewBag.tickets as List<Ticket>;
+}
+
+<div> 
+    <div class="d-flex flex-row" style="padding-right:10px;">
+        @foreach (var column in Model)
+        {
+            <div class="card p-3 d-table" style="margin-right:10px; z-index:1; position:relative;">
+                <ul class="list-group list-group-flush" style="margin-bottom:10px;">
+                    <li class="list-group-item text-center bg-success text-white fw-bold">@column.ColumnName</li>
+                </ul>
+                <div class="p-0" style="text-align:center; width:227px;">
+                    @foreach (var ticket in tickets.Where(x => x.ColumnId == @column.ColumnId))
+                    {
+                        <ul class="d-inline">
+                            <div class="card text-center" style="width: 14rem;">
+                                <div class="card-body">
+                                    <p style="text-align:center;" class="card-title">@ticket.Title</p>
+                                    <hr />
+                                    <p style="text-align:left;font-size:12px;" class="card-text text-black-50">Assignee: TestName</p>
+                                    @if(ticket.Priority == 1)
+                                    {
+                                        <span class="text-black-50" style="font-size:12px; text-align:left;">Priority: </span>
+                                        <p style="text-align:left; font-size:12px;" class="card-text text-primary">Not Critical</p>
+                                    }
+                                    else if(ticket.Priority == 2)
+                                    {
+                                        <span class="text-black-50" style="font-size:12px; text-align:left;">Priority: </span>
+                                        <p style="text-align:left; font-size:12px;" class="card-text text-success">Normal</p>
+                                    }
+                                    else if(ticket.Priority == 3)
+                                    {
+                                        <span class="text-black-50" style="font-size:12px; text-align:left;">Priority: </span>
+                                        <p style="text-align:left; font-size:12px;" class="card-text text-warning">Critical</p>
+                                    }
+                                    else if(ticket.Priority == 4)
+                                    {
+                                        <span class="text-black-50" style="font-size:12px; text-align:left;">Priority: </span>
+                                        <p style="text-align:left; font-size:12px;" class="card-text text-danger">Highest Priority</p>
+                                    }
+                                    <a style="text-align:center; font-size:12px;" href="/Ticket/GetTicket/@ticket.TicketId" class="btn btn-primary d-block">Detail</a>
+                                </div>
+                            </div>
+                        </ul>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+

@@ -1,0 +1,30 @@
+﻿@using Entity_Layer.Concrete
+@model Column
+@{
+    ViewData["Title"] = "CreateColumn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!-- Top header -->
+<header class="navbar-toggler">
+    <p class="w3-left text-dark font-weight-bolder" style="font-size:20px">Create Column</p>
+</header>
+<hr />
+
+@using (Html.BeginForm("CreateColumn", "Column", FormMethod.Post))
+{
+
+    @Html.Label("Column Name")
+    @Html.TextBoxFor(x => x.ColumnName, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.ColumnName, "", new { @class = "text-danger" })
+    <br />
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+    <button id="CreateButton" onclick="return confirm('You are going to create a column, are you sure?');" class="btn btn-success mb-3">Create<i class="icon-save ml-2"></i></button>
+}
+
