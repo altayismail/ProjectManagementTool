@@ -97,5 +97,39 @@ namespace ProjectManagementTool.Controllers
             }
             return View();
         }
+
+        public IActionResult DeleteTicket(int id)
+        {
+            var ticket = ticketManager.GetQueryById(id);
+            ticketManager.DeleteT(ticket);
+            return RedirectToAction("GetTickets");
+        }
+
+        [HttpGet]
+        public IActionResult UpdateTicket(int id)
+        {
+            var ticket = ticketManager.GetQueryById(id);
+            return View(ticket);
+        }
+        [HttpPost]
+        public IActionResult UpdateTicket(Ticket ticket)
+        {
+            TicketValidator validator = new TicketValidator();
+            ValidationResult validationResult = validator.Validate(ticket);
+
+            if (validationResult.IsValid)
+            {
+                ticketManager.UpdateT(ticket);
+                return RedirectToAction("GetTickets");
+            }
+            else
+            {
+                foreach (var item in validationResult.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+            return View();
+        }
     }
 }

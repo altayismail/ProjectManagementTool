@@ -7,7 +7,7 @@ namespace Data_Access_Layer.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=ISMAILALTAY; database=ProjeYönetimToolDB; integrated security=true; MultipleActiveResultSets=true;");
+            optionsBuilder.UseSqlServer("server=ISMAIL; database=ProjeYönetimToolDB; integrated security=true; MultipleActiveResultSets=true;");
         }
 
         public DbSet<Admin>? Admins { get; set; }

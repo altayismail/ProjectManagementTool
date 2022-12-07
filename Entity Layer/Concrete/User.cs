@@ -12,7 +12,7 @@ namespace Entity_Layer.Concrete
         public string? Username { get; set; }
         public string? Title { get; set; }
         public string? Password { get; set; }
-        public List<Ticket>? MyProperty { get; set; }
+        public List<Ticket>? Tickets { get; set; }
         public bool isAdmin { get; set; } = false;
     }
 }

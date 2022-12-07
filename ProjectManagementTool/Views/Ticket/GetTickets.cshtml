@@ -1,0 +1,70 @@
+﻿@using Entity_Layer.Concrete
+@model List<Ticket>
+@{
+    ViewData["Title"] = "Tickets";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Search<i class="icon-search2 ml-2"></i></span>
+    </div>
+    <input type="text" id="ticketFilter" class="form-control" placeholder="Search for Tickets" aria-label="Username" aria-describedby="basic-addon1">
+</div>
+<hr />
+
+<table class="table table-bordered table-striped p-5">
+    <thead>
+        <tr>
+            <th>Ticket Id</th>
+            <th>Ticket Column</th>
+            <th>Ticket Title</th>
+            <th>Assignee</th>
+            <th>Priority</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody id="ticketTable">
+        @foreach (var ticket in Model)
+        {
+            <tr>
+                <td>@ticket.TicketId</td>
+                <td>@ticket.Column</td>
+                <td>@ticket.Title</td>
+                <td>@ticket.AssignedUser</td>
+                <td>
+                    @if (ticket.Priority == 1)
+                    {
+                        <p class="text-primary">Not Critical</p>
+                    }
+                    else if (ticket.Priority == 2)
+                    {
+                        <p class="text-success">Normal</p>
+                    }
+                    else if (ticket.Priority == 3)
+                    {
+                        <p class="text-warning">Critical</p>
+                    }
+                    else if (ticket.Priority == 4)
+                    {
+                        <p class="text-danger">Highest Priority</p>
+                    }
+                </td>
+                <td><a href="/Admin/Kullanıcı/UpdateKullanıcı/@ticket.TicketId" id="UpdateButton" onclick="return confirm('You are going to Update Page of the Ticket, are you sure?');" class="btn btn-outline-warning text-dark">Update<i class="icon-edit ml-2"></i></a></td>
+                <td><a href="/Admin/Kullanıcı/DeleteKullanıcı/@ticket.TicketId" id="DeleteButton" onclick="return confirm('You are going to Delete the Ticket, are you sure?');" class="btn btn-outline-danger text-dark">Delete<i class="icon-delete ml-2"></i></a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+        $("#ticketFilter").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#ticketTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+</script>
+

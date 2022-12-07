@@ -24,26 +24,25 @@
                                     <p style="text-align:center;" class="card-title">@ticket.Title</p>
                                     <hr />
                                     <p style="text-align:left;font-size:12px;" class="card-text text-black-50">Assignee: TestName</p>
-                                    @if(ticket.Priority == 1)
-                                    {
-                                        <span class="text-black-50" style="font-size:12px; text-align:left;">Priority: </span>
-                                        <p style="text-align:left; font-size:12px;" class="card-text text-primary">Not Critical</p>
-                                    }
-                                    else if(ticket.Priority == 2)
-                                    {
-                                        <span class="text-black-50" style="font-size:12px; text-align:left;">Priority: </span>
-                                        <p style="text-align:left; font-size:12px;" class="card-text text-success">Normal</p>
-                                    }
-                                    else if(ticket.Priority == 3)
-                                    {
-                                        <span class="text-black-50" style="font-size:12px; text-align:left;">Priority: </span>
-                                        <p style="text-align:left; font-size:12px;" class="card-text text-warning">Critical</p>
-                                    }
-                                    else if(ticket.Priority == 4)
-                                    {
-                                        <span class="text-black-50" style="font-size:12px; text-align:left;">Priority: </span>
-                                        <p style="text-align:left; font-size:12px;" class="card-text text-danger">Highest Priority</p>
-                                    }
+                                    <p class="text-black-50 d-flex" style="font-size:12px; text-align:left;">
+                                        Priority:
+                                        @if (ticket.Priority == 1)
+                                        {
+                                            <span style="font-size:12px;" class="card-text text-primary">Not Critical</span>
+                                        }
+                                        else if (ticket.Priority == 2)
+                                        {
+                                            <span style="font-size:12px;" class="card-text text-success">Normal</span>
+                                        }
+                                        else if (ticket.Priority == 3)
+                                        {
+                                            <span style=" font-size:12px;" class="card-text text-warning">Critical</span>
+                                        }
+                                        else if (ticket.Priority == 4)
+                                        {
+                                            <span style="font-size:12px;" class="card-text text-danger">Highest Priority</span>
+                                        }
+                                    </p>
                                     <a style="text-align:center; font-size:12px;" href="/Ticket/GetTicket/@ticket.TicketId" class="btn btn-primary d-block">Detail</a>
                                 </div>
                             </div>

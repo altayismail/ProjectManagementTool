@@ -267,7 +267,7 @@ namespace Data_Access_Layer.Migrations
             modelBuilder.Entity("Entity_Layer.Concrete.Ticket", b =>
                 {
                     b.HasOne("Entity_Layer.Concrete.User", "AssignedUser")
-                        .WithMany("MyProperty")
+                        .WithMany("Tickets")
                         .HasForeignKey("AssignedUserUserId");
 
                     b.HasOne("Entity_Layer.Concrete.Column", "Column")
@@ -303,7 +303,7 @@ namespace Data_Access_Layer.Migrations
 
             modelBuilder.Entity("Entity_Layer.Concrete.User", b =>
                 {
-                    b.Navigation("MyProperty");
+                    b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618
         }
