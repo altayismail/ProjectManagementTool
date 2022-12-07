@@ -44,7 +44,7 @@
     @Html.EditorFor(model => model.EstimatedTime, new { style="margin-left:25px;",@type="date", @class = "form-control datepicker",  @Value = Model.EstimatedTime.ToString("gg-aa-yyyy") } )
     @Html.ValidationMessageFor(model => model.EstimatedTime, "", new { @class = "text-danger" })
     <br />
-    <button id="UpdateButton" onclick="return confirm('You are going to update the Ticket, are you sure?');" class="btn btn-warning mb-3">Update<i class="icon-save ml-2"></i></button>
+    <button id="UpdateButton" onclick="return confirm('You are going to update the Ticket, are you sure?');" class="btn btn-warning mb-3">Update<i class="fa fa-recycle m-1" style="font-size:15px"></i></button>
 
 }
 

@@ -47,7 +47,7 @@
     @Html.TextBoxFor(x => x.EstimatedTime, new { @type = "date", @class = "form-control datepicker" })
     @Html.ValidationMessageFor(x => x.EstimatedTime, "", new { @class = "text-danger" })
     <br />
-    <button id="CreateButton" onclick="return confirm('You are going to create the Ticket, are you sure?');" class="btn btn-success mb-3">Create<i class="icon-save ml-2"></i></button>
+    <button id="CreateButton" onclick="return confirm('You are going to create the Ticket, are you sure?');" class="btn btn-success mb-3">Create<i class="fa fa-plus ml-1" style="font-size:15px"></i></button>
     
 }
 

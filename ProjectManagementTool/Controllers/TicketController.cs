@@ -16,6 +16,7 @@ namespace ProjectManagementTool.Controllers
 
         public IActionResult GetTickets()
         {
+            ViewData["CheckTicketButton"] = "true";
             var tickets = ticketManager.GetAllTicketWithColumnAndAssignee();
             return View(tickets);
         }
