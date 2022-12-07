@@ -30,9 +30,9 @@
         {
             <tr>
                 <td>@ticket.TicketId</td>
-                <td>@ticket.Column</td>
+                <td>@ticket.Column.ColumnName</td>
                 <td>@ticket.Title</td>
-                <td>@ticket.AssignedUser</td>
+                <td>@ticket.Assigned.Firstname @ticket.Assigned.LastName</td>
                 <td>
                     @if (ticket.Priority == 1)
                     {
@@ -51,8 +51,8 @@
                         <p class="text-danger">Highest Priority</p>
                     }
                 </td>
-                <td><a href="/Admin/Kullanıcı/UpdateKullanıcı/@ticket.TicketId" id="UpdateButton" onclick="return confirm('You are going to Update Page of the Ticket, are you sure?');" class="btn btn-outline-warning text-dark">Update<i class="icon-edit ml-2"></i></a></td>
-                <td><a href="/Admin/Kullanıcı/DeleteKullanıcı/@ticket.TicketId" id="DeleteButton" onclick="return confirm('You are going to Delete the Ticket, are you sure?');" class="btn btn-outline-danger text-dark">Delete<i class="icon-delete ml-2"></i></a></td>
+                <td><a href="/Ticket/UpdateTicket/@ticket.TicketId" id="UpdateButton" onclick="return confirm('You are going to Update Page of the Ticket, are you sure?');" class="btn btn-outline-warning text-dark">Update<i class="icon-edit ml-2"></i></a></td>
+                <td><a href="/Ticket/DeleteTicket/@ticket.TicketId" id="DeleteButton" onclick="return confirm('You are going to Delete the Ticket, are you sure?');" class="btn btn-outline-danger text-dark">Delete<i class="icon-delete ml-2"></i></a></td>
             </tr>
         }
     </tbody>

@@ -1,8 +1,63 @@
-﻿
+﻿@using Entity_Layer.Concrete
+@model Ticket
 @{
-    ViewData["Title"] = "UpdateTicket";
+    ViewData["Title"] = "Update Ticket";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>UpdateTicket</h1>
+<!-- Top header -->
+<header class="navbar-toggler">
+    <p class="w3-left text-dark font-weight-bolder" style="font-size:20px">Update Ticket</p>
+</header>
+<hr />
+
+@using (Html.BeginForm("UpdateTicket", "Ticket", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.TicketId, new { @class = "form-control" })
+    @Html.LabelFor(model => model.Title, "Title")
+    @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+    <br />
+    @Html.LabelFor(model => model.AssignedId, "Assignee")
+    @Html.DropDownListFor(model => model.AssignedId, (List<SelectListItem>)ViewBag.users, new { @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.AssignedId, "", new { @class = "text-danger" })
+    <br />
+    @Html.LabelFor(model => model.TicketType, "Ticket Type")
+    @Html.DropDownListFor(model => model.TicketType, Enum.GetNames(typeof(TicketTypes)).Select(e => new SelectListItem { Text = e }), new { @class = "form-control" })
+    <br />
+    @Html.LabelFor(model => model.ColumnId, "Situation")
+    @Html.DropDownListFor(model => model.ColumnId, (List<SelectListItem>)ViewBag.columns, new { @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.ColumnId, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Description")
+    @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Description, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("The Ticket will have a Tester?")
+    <button class="btn btn-outline-success" type="button" style="text-decoration:none;" id="button1" value="button 1" onclick="enableDropdown()">Yes</button>
+    <button class="btn btn-outline-warning" type="button" style="text-decoration:none;" id="button2" value="button 2" onclick="disableDropdown()">No</button>
+    <hr />
+    @Html.Label("Tester")
+    @Html.DropDownListFor(x => x.Tester, (List<SelectListItem>)ViewBag.testers, new { @class = "form-control", id = "dropdownTester", disabled = "disabled"})
+    <br />
+    @Html.Label("Priority")
+    @Html.TextBoxFor(x => x.Priority, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Priority, "", new { @class = "text-danger" })
+    <br />
+    @Html.Label("Estimated Time (Which day the ticket will be on Done colum)")
+    @Html.TextBoxFor(x => x.EstimatedTime, new { @type = "date", @class = "form-control datepicker" })
+    @Html.ValidationMessageFor(x => x.EstimatedTime, "", new { @class = "text-danger" })
+    <br />
+    <button id="UpdateButton" onclick="return confirm('You are going to update the Ticket, are you sure?');" class="btn btn-warning mb-3">Update<i class="icon-save ml-2"></i></button>
+
+}
+
+<script>
+    function enableDropdown() {
+        document.getElementById("dropdownTester").disabled = false;
+    }
+    function disableDropdown() {
+        document.getElementById("dropdownTester").disabled = true;
+    }
+</script>
 

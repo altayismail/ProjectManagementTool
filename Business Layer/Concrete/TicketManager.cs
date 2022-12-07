@@ -36,5 +36,10 @@ namespace Business_Layer.Concrete
         {
             _ticketDal.Update(t);
         }
+
+        public List<Ticket> GetAllTicketWithColumnAndAssignee()
+        {
+            return _ticketDal.GetAllTicketWithColumnAndAssignee();
+        }
     }
 }

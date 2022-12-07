@@ -23,24 +23,24 @@
                                 <div class="card-body">
                                     <p style="text-align:center;" class="card-title">@ticket.Title</p>
                                     <hr />
-                                    <p style="text-align:left;font-size:12px;" class="card-text text-black-50">Assignee: TestName</p>
+                                    <p style="text-align:left;font-size:12px;" class="text-black-50">Assignee: @ticket.Assigned.Firstname @ticket.Assigned.LastName</p>
                                     <p class="text-black-50 d-flex" style="font-size:12px; text-align:left;">
                                         Priority:
                                         @if (ticket.Priority == 1)
                                         {
-                                            <span style="font-size:12px;" class="card-text text-primary">Not Critical</span>
+                                            <span style="font-size:12px; margin-left:5px;" class=" text-primary">Not Critical</span>
                                         }
                                         else if (ticket.Priority == 2)
                                         {
-                                            <span style="font-size:12px;" class="card-text text-success">Normal</span>
+                                            <span style="font-size:12px; margin-left:5px;" class=" text-success">Normal</span>
                                         }
                                         else if (ticket.Priority == 3)
                                         {
-                                            <span style=" font-size:12px;" class="card-text text-warning">Critical</span>
+                                            <span style=" font-size:12px; margin-left:5px;" class=" text-warning">Critical</span>
                                         }
                                         else if (ticket.Priority == 4)
                                         {
-                                            <span style="font-size:12px;" class="card-text text-danger">Highest Priority</span>
+                                            <span style="font-size:12px; margin-left:5px;" class=" text-danger">Highest Priority</span>
                                         }
                                     </p>
                                     <a style="text-align:center; font-size:12px;" href="/Ticket/GetTicket/@ticket.TicketId" class="btn btn-primary d-block">Detail</a>

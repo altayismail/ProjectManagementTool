@@ -15,7 +15,7 @@ namespace ProjectManagementTool.Controllers
         {
             ViewData["CheckColumnButton"] = "true";
             ViewData["CheckTicketButton"] = "true";
-            ViewBag.tickets = ticketManager.GetAllQuery();
+            ViewBag.tickets = ticketManager.GetAllTicketWithColumnAndAssignee();
             var columns = columnManager.GetAllQuery().ToList();
             return View(columns);
         }

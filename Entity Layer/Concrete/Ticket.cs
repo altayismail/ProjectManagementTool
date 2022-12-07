@@ -9,7 +9,7 @@ namespace Entity_Layer.Concrete
         public string? Title { get; set; }
 
         public int AssignedId { get; set; }
-        public User? AssignedUser { get; set; }
+        public User? Assigned { get; set; }
 
         public bool IsTester { get; set; }
         public string? Tester { get; set; }

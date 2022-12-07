@@ -16,7 +16,7 @@ namespace ProjectManagementTool.Controllers
 
         public IActionResult GetTickets()
         {
-            var tickets = ticketManager.GetAllQuery();
+            var tickets = ticketManager.GetAllTicketWithColumnAndAssignee();
             return View(tickets);
         }
 
@@ -108,12 +108,54 @@ namespace ProjectManagementTool.Controllers
         [HttpGet]
         public IActionResult UpdateTicket(int id)
         {
+            List<SelectListItem> users = userManager.GetAllQuery().
+                                                Select(x => new SelectListItem
+                                                {
+                                                    Text = x.Firstname + " " + x.LastName,
+                                                    Value = x.UserId.ToString()
+                                                }).ToList();
+            ViewBag.users = users;
+            List<SelectListItem> testers = userManager.GetAllQuery().
+                                                Select(x => new SelectListItem
+                                                {
+                                                    Text = x.Firstname + " " + x.LastName,
+                                                    Value = x.Firstname + " " + x.LastName
+                                                }).ToList();
+            ViewBag.testers = users;
+            List<SelectListItem> columns = columnManager.GetAllQuery().
+                                                Select(x => new SelectListItem
+                                                {
+                                                    Text = x.ColumnName,
+                                                    Value = x.ColumnId.ToString()
+                                                }).ToList();
+            ViewBag.columns = columns;
             var ticket = ticketManager.GetQueryById(id);
             return View(ticket);
         }
         [HttpPost]
         public IActionResult UpdateTicket(Ticket ticket)
         {
+            List<SelectListItem> users = userManager.GetAllQuery().
+                                                Select(x => new SelectListItem
+                                                {
+                                                    Text = x.Firstname + " " + x.LastName,
+                                                    Value = x.UserId.ToString()
+                                                }).ToList();
+            ViewBag.users = users;
+            List<SelectListItem> testers = userManager.GetAllQuery().
+                                                Select(x => new SelectListItem
+                                                {
+                                                    Text = x.Firstname + " " + x.LastName,
+                                                    Value = x.Firstname + " " + x.LastName
+                                                }).ToList();
+            ViewBag.testers = users;
+            List<SelectListItem> columns = columnManager.GetAllQuery().
+                                                Select(x => new SelectListItem
+                                                {
+                                                    Text = x.ColumnName,
+                                                    Value = x.ColumnId.ToString()
+                                                }).ToList();
+            ViewBag.columns = columns;
             TicketValidator validator = new TicketValidator();
             ValidationResult validationResult = validator.Validate(ticket);
 
