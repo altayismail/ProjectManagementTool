@@ -33,31 +33,19 @@
     @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
     @Html.ValidationMessageFor(x => x.Description, "", new { @class = "text-danger" })
     <br />
-    @Html.Label("The Ticket will have a Tester?")
-    <button class="btn btn-outline-success" type="button" style="text-decoration:none;" id="button1" value="button 1" onclick="enableDropdown()">Yes</button>
-    <button class="btn btn-outline-warning" type="button" style="text-decoration:none;" id="button2" value="button 2" onclick="disableDropdown()">No</button>
-    <hr />
     @Html.Label("Tester")
-    @Html.DropDownListFor(x => x.Tester, (List<SelectListItem>)ViewBag.testers, new { @class = "form-control", id = "dropdownTester", disabled = "disabled"})
+    @Html.DropDownListFor(x => x.Tester, (List<SelectListItem>)ViewBag.testers, new { @class = "form-control", id = "dropdownTester"})
     <br />
     @Html.Label("Priority")
     @Html.TextBoxFor(x => x.Priority, new { @class = "form-control" })
     @Html.ValidationMessageFor(x => x.Priority, "", new { @class = "text-danger" })
     <br />
-    @Html.Label("Estimated Time (Which day the ticket will be on Done colum)")
-    @Html.TextBoxFor(x => x.EstimatedTime, new { @type = "date", @class = "form-control datepicker" })
-    @Html.ValidationMessageFor(x => x.EstimatedTime, "", new { @class = "text-danger" })
+    @Html.Label("Estimated Time (Which day the ticket will be on Done column)")
+    @Html.EditorFor(model => model.EstimatedTime, new { style="margin-left:25px;",@type="date", @class = "form-control datepicker",  @Value = Model.EstimatedTime.ToString("gg-aa-yyyy") } )
+    @Html.ValidationMessageFor(model => model.EstimatedTime, "", new { @class = "text-danger" })
     <br />
     <button id="UpdateButton" onclick="return confirm('You are going to update the Ticket, are you sure?');" class="btn btn-warning mb-3">Update<i class="icon-save ml-2"></i></button>
 
 }
 
-<script>
-    function enableDropdown() {
-        document.getElementById("dropdownTester").disabled = false;
-    }
-    function disableDropdown() {
-        document.getElementById("dropdownTester").disabled = true;
-    }
-</script>
 

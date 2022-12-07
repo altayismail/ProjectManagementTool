@@ -22,7 +22,7 @@ namespace ProjectManagementTool.Controllers
 
         public IActionResult GetTicket(int id)
         {
-            var ticket = ticketManager.GetQueryById(id);
+            var ticket = ticketManager.GetAllTicketWithColumnAndAssignee().Where(x => x.TicketId == id).Single();
             return View(ticket);
         }
 
@@ -41,7 +41,7 @@ namespace ProjectManagementTool.Controllers
                                                     Text = x.Firstname + " " + x.LastName,
                                                     Value = x.Firstname + " " + x.LastName
                                                 }).ToList();
-            ViewBag.testers = users;
+            ViewBag.testers = testers;
             List<SelectListItem> columns = columnManager.GetAllQuery().
                                                 Select(x => new SelectListItem
                                                 {
@@ -68,7 +68,7 @@ namespace ProjectManagementTool.Controllers
                                                     Text = x.Firstname + " " + x.LastName,
                                                     Value = x.Firstname + " " + x.LastName
                                                 }).ToList();
-            ViewBag.testers = users;
+            ViewBag.testers = testers;
             List<SelectListItem> columns = columnManager.GetAllQuery().
                                                 Select(x => new SelectListItem
                                                 {
@@ -121,7 +121,7 @@ namespace ProjectManagementTool.Controllers
                                                     Text = x.Firstname + " " + x.LastName,
                                                     Value = x.Firstname + " " + x.LastName
                                                 }).ToList();
-            ViewBag.testers = users;
+            ViewBag.testers = testers;
             List<SelectListItem> columns = columnManager.GetAllQuery().
                                                 Select(x => new SelectListItem
                                                 {
@@ -148,7 +148,7 @@ namespace ProjectManagementTool.Controllers
                                                     Text = x.Firstname + " " + x.LastName,
                                                     Value = x.Firstname + " " + x.LastName
                                                 }).ToList();
-            ViewBag.testers = users;
+            ViewBag.testers = testers;
             List<SelectListItem> columns = columnManager.GetAllQuery().
                                                 Select(x => new SelectListItem
                                                 {

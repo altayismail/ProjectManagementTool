@@ -1,7 +1,66 @@
-﻿
+﻿@using Entity_Layer.Concrete
+@model Ticket
 @{
-    ViewData["Title"] = ViewBag.TicketTitle;
+    ViewData["Title"] = Model.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<form>
+    <div class="form-group row">
+        <label for="inputEmail3" class="col-sm-2 col-form-label fw-bolder">Title:</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="@Model.Title">
+        </div>
+    </div>
+    <hr />
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label fw-bolder">Assignee:</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="@Model.Assigned.Firstname @Model.Assigned.LastName">
+        </div>
+    </div>
+    <hr />
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label fw-bolder">Tester:</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="@Model.Tester">
+        </div>
+    </div>
+    <hr />
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label fw-bolder">Column:</label>
+        <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="@Model.Column.ColumnName">
+        </div>
+    </div>
+    <hr />
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label fw-bolder">Description:</label>
+        <div class="col-sm-10">
+            <textarea readonly rows="8" cols="50" class="form-control-plaintext">
+                @Model.Description
+            </textarea>
+        </div>
+    </div>
+    <hr />
+    <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label fw-bolder">Created Time:</label>
+        <div class="col-sm-4">
+            <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="@Model.CreatedTime.ToString("dd-MM-yyyy")">
+        </div>
+        <label for="inputPassword3" class="col-sm-2 col-form-label fw-bolder">Estimated Time:</label>
+        <div class="col-sm-4">
+            <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="@Model.EstimatedTime.ToString("dd-MM-yyyy")">
+        </div>
+    </div>
+    <hr />
+    <div class="form-group row">
+        <div class="col-sm-6">
+            <a href="/Ticket/UpdateTicket/@Model.TicketId" class="btn card-img btn-lg btn-outline-warning" style="text-align:center;">Update</a>
+        </div>
+        <div class="col-sm-6">
+            <a href="/Ticket/DeleteTicket/@Model.TicketId" class="btn card-img btn-lg btn-outline-danger">Delete</a>
+        </div>
+    </div>
+</form>
 
