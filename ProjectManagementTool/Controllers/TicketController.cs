@@ -13,6 +13,7 @@ namespace ProjectManagementTool.Controllers
         TicketManager ticketManager = new TicketManager(new EFTicketRepo());
         UserManager userManager = new UserManager(new EFUserRepo());
         ColumnManager columnManager = new ColumnManager(new EFColumnRepo());
+        ProjectManager projetManager = new ProjectManager(new EFProjectRepo());
 
         public IActionResult GetTickets()
         {
@@ -83,6 +84,7 @@ namespace ProjectManagementTool.Controllers
 
             if (validationResult.IsValid)
             {
+                ticket.TicketIdentifier = getFirstLetters(projetManager.GetAllQuery().Single().ProjectName) + (ticketManager.GetAllQuery().OrderBy(x => x.TicketId).Last().TicketId + 1).ToString();
                 ticket.CreatedTime = DateTime.Now;
                 ticket.Reporter = userManager.GetAllQuery().Where(x => x.Email == User.Identity.Name).Single().Firstname + " " +
                     userManager.GetAllQuery().Where(x => x.Email == User.Identity.Name).Single().LastName;
@@ -162,6 +164,7 @@ namespace ProjectManagementTool.Controllers
 
             if (validationResult.IsValid)
             {
+                ticket.UpdatedTime = DateTime.Now;
                 ticketManager.UpdateT(ticket);
                 return RedirectToAction("GetTickets");
             }
@@ -173,6 +176,17 @@ namespace ProjectManagementTool.Controllers
                 }
             }
             return View();
+        }
+
+        public string getFirstLetters(string name)
+        {
+            string[] letters = name.Split(" ");
+            string result = null;
+            foreach (var words in letters)
+            {
+                result += words.Substring(0, 1).ToUpper();
+            }
+            return result;
         }
     }
 }

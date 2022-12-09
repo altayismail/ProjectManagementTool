@@ -17,6 +17,10 @@ namespace ProjectManagementTool.Controllers
             ViewData["CheckTicketButton"] = "true";
             ViewBag.tickets = ticketManager.GetAllTicketWithColumnAndAssignee();
             var columns = columnManager.GetAllQuery().ToList();
+            if(columns is null)
+            {
+                ViewBag.ErrorMessage = "Please add Column to start Project.";
+            }
             return View(columns);
         }
 
@@ -44,6 +48,44 @@ namespace ProjectManagementTool.Controllers
                 }
             }
        
+            return View();
+        }
+
+        public IActionResult UpdateColumn(int id)
+        {
+            var column = columnManager.GetQueryById(id);
+            return View(column);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateColumn(Column column)
+        {
+            ColumnValidator columnValidator = new ColumnValidator();
+            ValidationResult validationResult = columnValidator.Validate(column);
+
+            if (validationResult.IsValid)
+            {
+                columnManager.UpdateT(column);
+                return RedirectToAction("GetColumns", "Column");
+            }
+            else
+            {
+                foreach (var item in validationResult.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+
+            return View();
+        }
+        public IActionResult DeleteColumn(int id)
+        {
+            var column = columnManager.GetQueryById(id);
+            if(column is not null)
+            {
+                columnManager.DeleteT(column);
+                return RedirectToAction("GetColumns", "Column");
+            }
             return View();
         }
     }

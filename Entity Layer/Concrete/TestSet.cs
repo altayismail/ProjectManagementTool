@@ -7,6 +7,7 @@ namespace Entity_Layer.Concrete
         [Key]
         public int TestSetId { get; set; }
         public string? Name { get; set; }
+        public string? TestSetResult { get; set; }
         public List<TestCase>? TestCases { get; set; }
     }
 }

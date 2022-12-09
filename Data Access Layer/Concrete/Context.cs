@@ -17,5 +17,6 @@ namespace Data_Access_Layer.Concrete
         public DbSet<TestSet>? TestSets { get; set; }
         public DbSet<Ticket>? Tickets { get; set; }
         public DbSet<User>? Users { get; set; }
+        public DbSet<Project>? Projects { get; set; }
     }
 }

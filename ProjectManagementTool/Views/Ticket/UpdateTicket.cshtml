@@ -18,9 +18,9 @@
     @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
     @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
     <br />
-    @Html.LabelFor(model => model.AssignedId, "Assignee")
-    @Html.DropDownListFor(model => model.AssignedId, (List<SelectListItem>)ViewBag.users, new { @class = "form-control" })
-    @Html.ValidationMessageFor(model => model.AssignedId, "", new { @class = "text-danger" })
+    @Html.LabelFor(model => model.UserId, "Assignee")
+    @Html.DropDownListFor(model => model.UserId, (List<SelectListItem>)ViewBag.users, new { @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
     <br />
     @Html.LabelFor(model => model.TicketType, "Ticket Type")
     @Html.DropDownListFor(model => model.TicketType, Enum.GetNames(typeof(TicketTypes)).Select(e => new SelectListItem { Text = e }), new { @class = "form-control" })

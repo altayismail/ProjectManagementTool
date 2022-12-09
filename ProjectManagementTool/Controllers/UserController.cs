@@ -40,7 +40,7 @@ namespace ProjectManagementTool.Controllers
                 ClaimsPrincipal principal = new ClaimsPrincipal(userIndetity);
 
                 await HttpContext.SignInAsync(principal);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("GetColumns", "Column");
             }
             else
             {
@@ -52,7 +52,7 @@ namespace ProjectManagementTool.Controllers
         public async Task<IActionResult> UserLogout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("UserLogin", "User");
         }
 
         [HttpGet]
@@ -63,7 +63,7 @@ namespace ProjectManagementTool.Controllers
             if (user == null)
             {
                 ViewBag.ErrorMessage = "User cannot be found.";
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("GetColumns", "Column");
             }
             return View(user);
         }
@@ -76,7 +76,7 @@ namespace ProjectManagementTool.Controllers
             if (validationResult.IsValid)
             {
                 userManager.UpdateT(user);
-                return RedirectToAction("Index","Home");
+                return RedirectToAction("GetColumns", "Column");
             }
             else
             {

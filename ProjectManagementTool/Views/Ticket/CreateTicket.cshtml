@@ -17,9 +17,9 @@
     @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
     @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
     <br />
-    @Html.LabelFor(model => model.AssignedId, "Assignee")
-    @Html.DropDownListFor(model => model.AssignedId, (List<SelectListItem>)ViewBag.users, new { @class = "form-control" })
-    @Html.ValidationMessageFor(model => model.AssignedId, "", new { @class = "text-danger" })
+    @Html.LabelFor(model => model.UserId, "Assignee")
+    @Html.DropDownListFor(model => model.UserId, (List<SelectListItem>)ViewBag.users, new { @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
     <br />
     @Html.LabelFor(model => model.TicketType, "Ticket Type")
     @Html.DropDownListFor(model => model.TicketType, Enum.GetNames(typeof(TicketTypes)).Select(e => new SelectListItem { Text = e }), new { @class = "form-control" })
@@ -47,7 +47,7 @@
     @Html.TextBoxFor(x => x.EstimatedTime, new { @type = "date", @class = "form-control datepicker" })
     @Html.ValidationMessageFor(x => x.EstimatedTime, "", new { @class = "text-danger" })
     <br />
-    <button id="CreateButton" onclick="return confirm('You are going to create the Ticket, are you sure?');" class="btn btn-success mb-3">Create<i class="fa fa-plus ml-1" style="font-size:15px"></i></button>
+    <button id="CreateButton" onclick="return confirm('You are going to create the Ticket, are you sure?');" class="btn btn-success mb-3">Create<i class="fa fa-plus m-1" style="font-size:15px"></i></button>
     
 }
 

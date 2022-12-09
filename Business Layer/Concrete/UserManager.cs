@@ -1,7 +1,6 @@
 ﻿using Business_Layer.Abstract;
 using Data_Access_Layer.Abstract;
 using Entity_Layer.Concrete;
-using System.Web.Mvc;
 
 namespace Business_Layer.Concrete
 {

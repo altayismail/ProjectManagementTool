@@ -13,7 +13,9 @@
         {
             <div class="card p-3 d-table" style="margin-right:10px; z-index:1; position:relative;">
                 <ul class="list-group list-group-flush" style="margin-bottom:10px;">
-                    <li class="list-group-item text-center bg-success text-white fw-bold">@column.ColumnName</li>
+                    <a href="/Column/UpdateColumn/@column.ColumnId" style="text-decoration:none;">
+                        <li class="list-group-item text-center bg-success text-white fw-bold">@column.ColumnName</li>
+                    </a>
                 </ul>
                 <div class="p-0" style="text-align:center; width:227px;">
                     @foreach (var ticket in tickets.Where(x => x.ColumnId == @column.ColumnId))
@@ -23,7 +25,7 @@
                                 <div class="card-body">
                                     <p style="text-align:center;" class="card-title">@ticket.Title</p>
                                     <hr />
-                                    <p style="text-align:left;font-size:12px;" class="text-black-50">Assignee: @ticket.Assigned.Firstname @ticket.Assigned.LastName</p>
+                                    <p style="text-align:left;font-size:12px;" class="text-black-50">Assignee: @ticket.User.Firstname @ticket.User.LastName</p>
                                     <p class="text-black-50 d-flex" style="font-size:12px; text-align:left;">
                                         Priority:
                                         @if (ticket.Priority == 1)

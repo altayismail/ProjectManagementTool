@@ -2,12 +2,11 @@
 
 namespace Entity_Layer.Concrete
 {
-    public class Column
+    public class Project
     {
         [Key]
-        public int ColumnId { get; set; }
-        public string? ColumnName { get; set; }
-        public int ColumnOrder { get; set; }
+        public int ProjectId { get; set; }
+        public string? ProjectName { get; set; }
         public List<Ticket>? Tickets { get; set; }
     }
 }

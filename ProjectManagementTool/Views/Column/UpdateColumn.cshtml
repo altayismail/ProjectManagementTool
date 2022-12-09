@@ -1,0 +1,30 @@
+﻿@using Entity_Layer.Concrete
+@model Column
+@{
+    ViewData["Title"] = "Update Column";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Top header -->
+<header class="navbar-toggler">
+    <p class="w3-left text-dark font-weight-bolder" style="font-size:20px">Update Column</p>
+</header>
+<hr />
+
+@using (Html.BeginForm("UpdateColumn", "Column", FormMethod.Post))
+{
+    @Html.HiddenFor(x => x.ColumnId, new { @class = "form-control" })
+    @Html.Label("Column Name")
+    @Html.TextBoxFor(x => x.ColumnName, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.ColumnName, "", new { @class = "text-danger" })
+    <br />
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.ErrorMessage
+        </div>
+    }
+    <button id="UpdateButton" onclick="return confirm('You are going to update the column, are you sure?');" class="btn card-img btn-lg btn-warning mb-3">Update<i class="fa fa-recycle m-1" style="font-size:15px"></i></button>
+    <a href="/Column/DeleteColumn/@Model.ColumnId" id="DeleteButton" onclick="return confirm('You are going to delete the column, are you sure?');" class="btn card-img btn-lg btn-danger mb-3">Delete<i class="fa fa-trash m-1" style="font-size:15px"></i></a>
+}
+

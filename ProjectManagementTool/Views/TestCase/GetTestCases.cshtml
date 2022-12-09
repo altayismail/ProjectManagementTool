@@ -1,0 +1,52 @@
+﻿@using Entity_Layer.Concrete
+@model List<TestCase>
+@{
+    ViewData["Title"] = "TestCases";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Search<i class="icon-search2 ml-2"></i></span>
+    </div>
+    <input type="text" id="testCaseFilter" class="form-control" placeholder="Search for Test Cases" aria-label="Username" aria-describedby="basic-addon1">
+</div>
+<hr />
+
+<table class="table table-bordered table-striped p-5">
+    <thead>
+        <tr>
+            <th>Test Case Identifier</th>
+            <th>Test Case Title</th>
+            <th>Related Ticket</th>
+            <th>Created Date</th>
+            <th>Test Case Writer</th>
+            <th>Detail</th>
+        </tr>
+    </thead>
+    <tbody id="testCaseTable">
+        @foreach (var testCase in Model)
+        {
+            <tr>
+                <td>@testCase.TestCaseIdentifier</td>
+                <td>@testCase.Name</td>
+                <td>@testCase.Ticket.TicketIdentifier</td>
+                <td>@testCase.CreatedTime.ToShortDateString()</td>
+                <td>@testCase.TestCaseWriter</td>
+                <td><a href="/TestCase/GetTestCase/@testCase.TestCaseId" id="DetailButton"  class="btn btn-outline-primary text-dark">Detail</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+        $("#testCaseFilter").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#testCaseTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+</script>
+

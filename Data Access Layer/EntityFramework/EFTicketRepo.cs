@@ -13,7 +13,7 @@ namespace Data_Access_Layer.EntityFramework
             using (var context = new Context())
             {
                 return context.Tickets
-                    .Include(x => x.Assigned)
+                    .Include(x => x.User)
                     .Include(x => x.Column)
                     .ToList();
             }

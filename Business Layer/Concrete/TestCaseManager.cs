@@ -36,5 +36,10 @@ namespace Business_Layer.Concrete
         {
             _testCaseDal.Update(t);
         }
+
+        public List<TestCase> GetAllQueryWithTicket()
+        {
+            return _testCaseDal.GetAllQueryWithTicket();
+        }
     }
 }

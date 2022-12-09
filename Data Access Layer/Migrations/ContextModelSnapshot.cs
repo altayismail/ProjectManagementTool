@@ -64,9 +64,28 @@ namespace Data_Access_Layer.Migrations
                     b.Property<string>("ColumnName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ColumnOrder")
+                        .HasColumnType("int");
+
                     b.HasKey("ColumnId");
 
                     b.ToTable("Columns");
+                });
+
+            modelBuilder.Entity("Entity_Layer.Concrete.Project", b =>
+                {
+                    b.Property<int>("ProjectId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProjectId"), 1L, 1);
+
+                    b.Property<string>("ProjectName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ProjectId");
+
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("Entity_Layer.Concrete.Step", b =>
@@ -80,8 +99,14 @@ namespace Data_Access_Layer.Migrations
                     b.Property<string>("Action")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Data")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ExceptedResult")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StepOrder")
+                        .HasColumnType("int");
 
                     b.Property<int>("TestCaseId")
                         .HasColumnType("int");
@@ -104,13 +129,22 @@ namespace Data_Access_Layer.Migrations
                     b.Property<bool>("CaseResult")
                         .HasColumnType("bit");
 
+                    b.Property<DateTime>("CreatedTime")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Precondition")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TestSetId")
+                    b.Property<string>("TestCaseIdentifier")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TestCaseWriter")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("TestSetId")
                         .HasColumnType("int");
 
                     b.Property<string>("TestType")
@@ -118,6 +152,9 @@ namespace Data_Access_Layer.Migrations
 
                     b.Property<int>("TicketId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedTime")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("TestCaseId");
 
@@ -139,6 +176,9 @@ namespace Data_Access_Layer.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("TestSetResult")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("TestSetId");
 
                     b.ToTable("TestSets");
@@ -151,12 +191,6 @@ namespace Data_Access_Layer.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TicketId"), 1L, 1);
-
-                    b.Property<int>("AssignedId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("AssignedUserUserId")
-                        .HasColumnType("int");
 
                     b.Property<int>("ColumnId")
                         .HasColumnType("int");
@@ -176,13 +210,16 @@ namespace Data_Access_Layer.Migrations
                     b.Property<int>("Priority")
                         .HasColumnType("int");
 
-                    b.Property<string>("ProjectName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("ProjectId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Reporter")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tester")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TicketIdentifier")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TicketType")
@@ -191,11 +228,19 @@ namespace Data_Access_Layer.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("UpdatedTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("TicketId");
 
-                    b.HasIndex("AssignedUserUserId");
-
                     b.HasIndex("ColumnId");
+
+                    b.HasIndex("ProjectId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Tickets");
                 });
@@ -249,9 +294,7 @@ namespace Data_Access_Layer.Migrations
                 {
                     b.HasOne("Entity_Layer.Concrete.TestSet", "TestSet")
                         .WithMany("TestCases")
-                        .HasForeignKey("TestSetId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TestSetId");
 
                     b.HasOne("Entity_Layer.Concrete.Ticket", "Ticket")
                         .WithMany("TestCases")
@@ -266,22 +309,33 @@ namespace Data_Access_Layer.Migrations
 
             modelBuilder.Entity("Entity_Layer.Concrete.Ticket", b =>
                 {
-                    b.HasOne("Entity_Layer.Concrete.User", "AssignedUser")
-                        .WithMany("Tickets")
-                        .HasForeignKey("AssignedUserUserId");
-
                     b.HasOne("Entity_Layer.Concrete.Column", "Column")
                         .WithMany("Tickets")
                         .HasForeignKey("ColumnId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("AssignedUser");
+                    b.HasOne("Entity_Layer.Concrete.Project", null)
+                        .WithMany("Tickets")
+                        .HasForeignKey("ProjectId");
+
+                    b.HasOne("Entity_Layer.Concrete.User", "User")
+                        .WithMany("Tickets")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Column");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Entity_Layer.Concrete.Column", b =>
+                {
+                    b.Navigation("Tickets");
+                });
+
+            modelBuilder.Entity("Entity_Layer.Concrete.Project", b =>
                 {
                     b.Navigation("Tickets");
                 });

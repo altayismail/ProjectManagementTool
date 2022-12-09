@@ -1,0 +1,31 @@
+﻿@using Entity_Layer.Concrete
+@model TestCase
+@{
+    ViewData["Title"] = "Create Test Case";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Top header -->
+<header class="navbar-toggler">
+    <p class="w3-left text-dark font-weight-bolder" style="font-size:20px">Add Test Case</p>
+</header>
+<hr />
+
+@using (Html.BeginForm("CreateTestCase", "TestCase", FormMethod.Post))
+{
+    @Html.LabelFor(model => model.Name, "Title")
+    @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+    <br />
+    @Html.LabelFor(model => model.Precondition, "Preconditions")
+    @Html.TextBoxFor(model => model.Precondition, new { @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.Precondition, "", new { @class = "text-danger" })
+    <br />
+    @Html.LabelFor(model => model.TicketId, "Related Ticket")
+    @Html.DropDownListFor(model => model.TicketId, (List<SelectListItem>)ViewBag.tickets, new { @class = "form-control" })
+    @Html.ValidationMessageFor(model => model.TicketId, "", new { @class = "text-danger" })
+    <br />
+    <button id="CreateButton" onclick="return confirm('You are going to create the Test Case, are you sure?');" class="btn btn-success mb-3">Create<i class="fa fa-plus m-1" style="font-size:15px"></i></button>
+
+}
+
