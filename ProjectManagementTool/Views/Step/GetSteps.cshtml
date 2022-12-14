@@ -1,0 +1,33 @@
+﻿@using Entity_Layer.Concrete
+@model List<Step>
+@{
+    ViewData["Title"] = "Steps";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@foreach (var step in Model)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="comment">Action</label>
+                    <textarea class="form-control" rows="5" id="action">@step.Action</textarea>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="comment">Data</label>
+                    <textarea class="form-control" rows="5" id="data">@step.Data</textarea>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="comment">Excepted Result</label>
+                    <textarea class="form-control" rows="5" id="exceptedResult">@step.ExceptedResult</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,63 @@
+﻿@using Entity_Layer.Concrete
+@model Step
+@{
+    ViewData["Title"] = "Add Step";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@foreach (var step in @ViewData["Steps"] as List<Step>)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="comment">Action</label>
+                    <textarea class="form-control" rows="5" id="action">@step.Action</textarea>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="comment">Data</label>
+                    <textarea class="form-control" rows="5" id="data">@step.Data</textarea>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="comment">Excepted Result</label>
+                    <textarea class="form-control" rows="5" id="exceptedResult">@step.ExceptedResult</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("CreateStep", "Step", FormMethod.Post))
+{
+
+    <div class="container">
+        <div class="row">
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="comment">Action</label>
+                    @Html.TextBoxFor(model => model.Action, new {@class="form-control"})
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="comment">Data</label>
+                    @Html.TextBoxFor(model => model.Data, new {@class="form-control"})
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="comment">Excepted Result</label>
+                    @Html.TextBoxFor(model => model.ExceptedResult, new {@class="form-control"})
+                </div>
+            </div>
+        </div>
+    </div>
+    <br />
+    <button id="CreateButton" onclick="return confirm('You are going to add a step, are you sure?');" class="btn card-img btn-lg btn-success-outline mb-3">Add<i class="fa fa-plus m-1" style="font-size:15px"></i></button>
+}
+

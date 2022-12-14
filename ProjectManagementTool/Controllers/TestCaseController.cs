@@ -20,7 +20,7 @@ namespace ProjectManagementTool.Controllers
         public IActionResult GetTestCase(int id)
         {
             var testCase = testCaseManager.GetAllQueryWithTicket().Where(x => x.TestCaseId == id).Single();
-            return View(testCase);
+            return RedirectToAction("GetSteps","Step", new {testCaseId = testCase.TestCaseId});
         }
         public IActionResult CreateTestCase()
         {

@@ -37,5 +37,9 @@ namespace Business_Layer.Concrete
         {
             _stepDal.Update(t);
         }
+        public List<Step> GetStepsWithTestCase(int id)
+        {
+            return _stepDal.GetStepsWithTestCase(id);
+        }
     }
 }

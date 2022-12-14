@@ -8,9 +8,12 @@ namespace ProjectManagementTool.Controllers
     public class StepController : Controller
     {
         StepManager stepManager = new StepManager(new EFStepRepo());
-        public IActionResult GetSteps()
+        TestCaseManager testCaseManager = new TestCaseManager(new EFTestCaseRepo());
+        public IActionResult GetSteps(int testCaseId)
         {
-            var steps = stepManager.GetAllQuery();
+            ViewData["CheckAddStepButton"] = "true";
+            ViewBag.testCaseId = testCaseId;
+            var steps = stepManager.GetStepsWithTestCase(testCaseId);
             return View(steps);
         }
 
@@ -20,14 +23,17 @@ namespace ProjectManagementTool.Controllers
             return View(step);
         }
 
-        public IActionResult CreateStep()
+        public IActionResult CreateStep(int testCaseId)
         {
-            return View();
+            var steps = stepManager.GetStepsWithTestCase(testCaseId);
+            ViewData["Steps"] = stepManager.GetStepsWithTestCase(testCaseId);
+            return View(steps);
         }
         [HttpPost]
         public IActionResult CreateStep(Step step)
         {
-            if(step is not null)
+            ViewData["Steps"] = stepManager.GetStepsWithTestCase(step.TestCaseId);
+            if (step is not null)
             {
                 stepManager.AddT(step);
                 return RedirectToAction("GetTestCase", "TestCase", new { id = step.TestCaseId });

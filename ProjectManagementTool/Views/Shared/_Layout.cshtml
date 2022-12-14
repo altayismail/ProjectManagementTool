@@ -159,6 +159,13 @@
                         Add Test Case<i class="fa fa-plus m-1" style="font-size:15px"></i>
                     </a>
                 }
+
+                if (ViewData["CheckAddStepButton"] == "true")
+                {
+                        <a class="btn btn-primary text-white" href="/Step/CreateStep/@ViewBag.testCaseId" style="margin-left:25px;">
+                        Add Step<i class="fa fa-plus m-1" style="font-size:15px"></i>
+                    </a>
+                }
             }
 
                 <!-- Right links -->
