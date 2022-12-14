@@ -23,4 +23,10 @@ namespace Entity_Layer.Concrete
         public int? TestSetId { get; set; }
         public TestSet? TestSet { get; set; }
     }
+
+    public static class TestCaseId
+    {
+        public static int testCaseID { get; set; }
+    }
 }
+

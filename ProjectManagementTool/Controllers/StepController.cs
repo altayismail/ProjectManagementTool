@@ -12,7 +12,8 @@ namespace ProjectManagementTool.Controllers
         public IActionResult GetSteps(int testCaseId)
         {
             ViewData["CheckAddStepButton"] = "true";
-            ViewBag.testCaseId = testCaseId;
+            TestCaseId.testCaseID = testCaseId;
+            ViewBag.testCase = testCaseManager.GetQueryById(testCaseId);
             var steps = stepManager.GetStepsWithTestCase(testCaseId);
             return View(steps);
         }
@@ -23,20 +24,31 @@ namespace ProjectManagementTool.Controllers
             return View(step);
         }
 
-        public IActionResult CreateStep(int testCaseId)
+        public IActionResult CreateStep()
         {
-            var steps = stepManager.GetStepsWithTestCase(testCaseId);
-            ViewData["Steps"] = stepManager.GetStepsWithTestCase(testCaseId);
-            return View(steps);
+            ViewData["Steps"] = stepManager.GetStepsWithTestCase(TestCaseId.testCaseID);
+            ViewBag.testCase = testCaseManager.GetQueryById(TestCaseId.testCaseID);
+            return View();
         }
         [HttpPost]
         public IActionResult CreateStep(Step step)
         {
-            ViewData["Steps"] = stepManager.GetStepsWithTestCase(step.TestCaseId);
+            ViewData["Steps"] = stepManager.GetStepsWithTestCase(TestCaseId.testCaseID);
+            ViewBag.testCase = testCaseManager.GetQueryById(TestCaseId.testCaseID);
             if (step is not null)
             {
+                try
+                {
+                    step.StepOrder = stepManager.GetStepsWithTestCase(TestCaseId.testCaseID).OrderBy(x => x.StepId).Last().StepOrder + 1;
+                }
+                catch (Exception)
+                {
+                    step.StepOrder = 1;
+                }
+                    
+                step.TestCaseId = TestCaseId.testCaseID;
                 stepManager.AddT(step);
-                return RedirectToAction("GetTestCase", "TestCase", new { id = step.TestCaseId });
+                return RedirectToAction("GetTestCase", "TestCase", new { id = TestCaseId.testCaseID });
             }
             return View();
         }

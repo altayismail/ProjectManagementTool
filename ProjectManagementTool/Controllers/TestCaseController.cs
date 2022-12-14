@@ -47,7 +47,15 @@ namespace ProjectManagementTool.Controllers
             {
                 testCase.TestCaseWriter = userManager.GetAllQuery().Where(x => x.Email == User.Identity.Name).Single().Firstname + " " +
                     userManager.GetAllQuery().Where(x => x.Email == User.Identity.Name).Single().LastName;
-                testCase.TestCaseIdentifier = $"TC{testCaseManager.GetAllQuery().OrderBy(x => x.TestCaseId).Last().TestCaseId + 1}";
+                try
+                {
+                    testCase.TestCaseIdentifier = $"TC{testCaseManager.GetAllQuery().OrderBy(x => x.TestCaseId).Last().TestCaseId + 1}";
+                }
+                catch (Exception)
+                {
+                    testCase.TestCaseIdentifier = "TCT1";
+                }
+                
                 testCase.CreatedTime = DateTime.Now;
                 testCaseManager.AddT(testCase);
                 return RedirectToAction("GetTestCases","TestCase");
@@ -56,14 +64,29 @@ namespace ProjectManagementTool.Controllers
         }
         public IActionResult UpdateTestCase(int id)
         {
+            List<SelectListItem> tickets = ticketManager.GetAllQuery().
+                                                Select(x => new SelectListItem
+                                                {
+                                                    Text = x.TicketIdentifier,
+                                                    Value = x.TicketId.ToString()
+                                                }).ToList();
+            ViewBag.tickets = tickets;
             var testCase = testCaseManager.GetQueryById(id);
             return View(testCase);
         }
         [HttpPost]
         public IActionResult UpdateTestCase(TestCase testCase)
         {
+            List<SelectListItem> tickets = ticketManager.GetAllQuery().
+                                                Select(x => new SelectListItem
+                                                {
+                                                    Text = x.TicketIdentifier,
+                                                    Value = x.TicketId.ToString()
+                                                }).ToList();
+            ViewBag.tickets = tickets;
             if (testCase is not null)
             {
+                testCase.UpdatedTime = DateTime.Now;
                 testCaseManager.UpdateT(testCase);
                 return RedirectToAction("GetTestCase", "TestCase", new { id = testCase.TestCaseId });
             }

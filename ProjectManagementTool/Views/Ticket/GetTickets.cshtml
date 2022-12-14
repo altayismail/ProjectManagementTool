@@ -16,7 +16,7 @@
 <table class="table table-bordered table-striped p-5">
     <thead>
         <tr>
-            <th>Ticket Id</th>
+            <th>Ticket Identifier</th>
             <th>Ticket Column</th>
             <th>Ticket Title</th>
             <th>Assignee</th>
@@ -29,7 +29,7 @@
         @foreach (var ticket in Model)
         {
             <tr>
-                <td>@ticket.TicketId</td>
+                <td>@ticket.TicketIdentifier</td>
                 <td>@ticket.Column.ColumnName</td>
                 <td>@ticket.Title</td>
                 <td>@ticket.User.Firstname @ticket.User.LastName</td>

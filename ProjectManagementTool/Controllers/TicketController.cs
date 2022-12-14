@@ -84,7 +84,16 @@ namespace ProjectManagementTool.Controllers
 
             if (validationResult.IsValid)
             {
-                ticket.TicketIdentifier = getFirstLetters(projetManager.GetAllQuery().Single().ProjectName) + (ticketManager.GetAllQuery().OrderBy(x => x.TicketId).Last().TicketId + 1).ToString();
+                try
+                {
+                    ticket.TicketIdentifier = getFirstLetters(projetManager.GetAllQuery().Single().ProjectName) + (ticketManager.GetAllQuery().OrderBy(x => x.TicketId).Last().TicketId + 1).ToString();
+                }
+                catch (Exception)
+                {
+                    ticket.TicketIdentifier = ticket.TicketIdentifier = getFirstLetters(projetManager.GetAllQuery().Single().ProjectName) + (1).ToString();
+                }
+       
+                
                 ticket.CreatedTime = DateTime.Now;
                 ticket.Reporter = userManager.GetAllQuery().Where(x => x.Email == User.Identity.Name).Single().Firstname + " " +
                     userManager.GetAllQuery().Where(x => x.Email == User.Identity.Name).Single().LastName;

@@ -3,29 +3,67 @@
 @{
     ViewData["Title"] = "Add Step";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    TestCase testCase = ViewBag.testCase as TestCase;
 }
+
+<div class="card text-center">
+    <div class="card-header">
+        <h5 class="card-title" style="text-align:center;">@testCase.Name</h5>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title" style="text-align:left;">Creater: @testCase.TestCaseWriter</h5>
+        <h5 class="card-text" style="text-align:left;">Related Ticket: @testCase.TestCaseIdentifier</h5>
+        <h5 class="card-text" style="text-align:left;">Precondition: @testCase.Precondition</h5>
+    </div>
+    <div class="card-body">
+        <a href="/TestCase/UpdateTestCase/@testCase.TestCaseId" class="btn btn-outline-warning card-img">Edit Test Case<i class="fa fa-recycle m-1" style="font-size:15px"></i></a>
+    </div>
+    <div class="card-footer text-muted">
+        Created at @testCase.CreatedTime
+    </div>
+    @if (@testCase.UpdatedTime != null)
+    {
+        <div class="card-footer text-muted">
+            Updated at @testCase.UpdatedTime
+        </div>
+    }
+</div>
+<hr />
 
 
 @foreach (var step in @ViewData["Steps"] as List<Step>)
 {
-    <div class="container">
+    <div class="container mb-2">
         <div class="row">
-            <div class="col-4">
+            <div class="col-1">
                 <div class="form-group">
-                    <label for="comment">Action</label>
+                    <label for="comment" class="fw-bolder">@step.StepOrder</label>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="comment" class="fw-bolder">Action</label>
                     <textarea class="form-control" rows="5" id="action">@step.Action</textarea>
                 </div>
             </div>
-            <div class="col-4">
-                <div class="form-group">
+            <div class="col-3">
+                <div class="form-group fw-bolder" >
                     <label for="comment">Data</label>
                     <textarea class="form-control" rows="5" id="data">@step.Data</textarea>
                 </div>
             </div>
-            <div class="col-4">
-                <div class="form-group">
+            <div class="col-3">
+                <div class="form-group fw-bolder">
                     <label for="comment">Excepted Result</label>
                     <textarea class="form-control" rows="5" id="exceptedResult">@step.ExceptedResult</textarea>
+                </div>
+            </div>
+            <div class="col-2">
+                <div class="row mt-5">
+                    <a class="btn btn-warning"><i class="fa fa-recycle m-1" style="font-size:15px"></i></a>
+                </div>
+                <div class="row mt-1">
+                    <a class="btn btn-danger"><i class="fa fa-trash m-1" style="font-size:15px"></i></a>
                 </div>
             </div>
         </div>
@@ -37,27 +75,34 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-4">
+            <div class="col-1">
                 <div class="form-group">
-                    <label for="comment">Action</label>
-                    @Html.TextBoxFor(model => model.Action, new {@class="form-control"})
+                    <label for="comment" class="fw-bolder"></label>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <div class="form-group">
+                    <label for="comment" class="fw-bolder">Action</label>
+                    @Html.TextAreaFor(model => model.Action, new {@class="form-control", rows="5"})
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group fw-bolder">
                     <label for="comment">Data</label>
-                    @Html.TextBoxFor(model => model.Data, new {@class="form-control"})
+                    @Html.TextAreaFor(model => model.Data, new {@class="form-control", rows="5"})
                 </div>
             </div>
-            <div class="col-4">
-                <div class="form-group">
+            <div class="col-3">
+                <div class="form-group fw-bolder">
                     <label for="comment">Excepted Result</label>
-                    @Html.TextBoxFor(model => model.ExceptedResult, new {@class="form-control"})
+                    @Html.TextAreaFor(model => model.ExceptedResult, new {@class="form-control", rows="5"})
                 </div>
+            </div>
+            <div class="col-2">
             </div>
         </div>
     </div>
     <br />
-    <button id="CreateButton" onclick="return confirm('You are going to add a step, are you sure?');" class="btn card-img btn-lg btn-success-outline mb-3">Add<i class="fa fa-plus m-1" style="font-size:15px"></i></button>
+    <button id="CreateButton" onclick="return confirm('You are going to add a step, are you sure?');" class="btn card-img btn-lg btn-success mb-3">Add Step<i class="fa fa-plus m-1" style="font-size:15px"></i></button>
 }
 
