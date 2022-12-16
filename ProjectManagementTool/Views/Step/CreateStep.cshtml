@@ -13,10 +13,10 @@
     <div class="card-body">
         <h5 class="card-title" style="text-align:left;">Creater: @testCase.TestCaseWriter</h5>
         <h5 class="card-text" style="text-align:left;">Related Ticket: @testCase.TestCaseIdentifier</h5>
-        <h5 class="card-text" style="text-align:left;">Precondition: @testCase.Precondition</h5>
+        <h5 class="card-text card-header" style="text-align:left;">Precondition: @testCase.Precondition</h5>
     </div>
     <div class="card-body">
-        <a href="/TestCase/UpdateTestCase/@testCase.TestCaseId" class="btn btn-outline-warning card-img">Edit Test Case<i class="fa fa-recycle m-1" style="font-size:15px"></i></a>
+        <a href="/TestCase/UpdateTestCase/@testCase.TestCaseId" class="btn btn-warning card-img">Edit Test Case<i class="fa fa-recycle m-1" style="font-size:15px"></i></a>
     </div>
     <div class="card-footer text-muted">
         Created at @testCase.CreatedTime
@@ -60,10 +60,10 @@
             </div>
             <div class="col-2">
                 <div class="row mt-5">
-                    <a class="btn btn-warning"><i class="fa fa-recycle m-1" style="font-size:15px"></i></a>
+                    <a href="/Step/UpdateStep/@step.StepId" class="btn btn-warning"><i class="fa fa-recycle m-1" style="font-size:15px"></i></a>
                 </div>
                 <div class="row mt-1">
-                    <a class="btn btn-danger"><i class="fa fa-trash m-1" style="font-size:15px"></i></a>
+                    <a href="/Step/DeleteStep/@step.StepId" class="btn btn-danger"><i class="fa fa-trash m-1" style="font-size:15px"></i></a>
                 </div>
             </div>
         </div>

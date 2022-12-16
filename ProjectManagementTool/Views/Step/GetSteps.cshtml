@@ -14,10 +14,10 @@
     <div class="card-body">
         <h5 class="card-title" style="text-align:left;">Creater: @testCase.TestCaseWriter</h5>
         <h5 class="card-text" style="text-align:left;">Related Ticket: @testCase.TestCaseIdentifier</h5>
-        <h5 class="card-text" style="text-align:left;">Precondition: @testCase.Precondition</h5>
+        <h5 class="card-text card-header" style="text-align:left;">Precondition: @testCase.Precondition</h5>
     </div>
     <div class="card-body">
-        <a href="/TestCase/UpdateTestCase/@testCase.TestCaseId" class="btn btn-outline-warning card-img">Edit Test Case<i class="fa fa-recycle m-1" style="font-size:15px"></i></a>
+        <a href="/TestCase/UpdateTestCase/@testCase.TestCaseId" class="btn btn-warning card-img">Edit Test Case<i class="fa fa-recycle m-1" style="font-size:15px"></i></a>
     </div>
     <div class="card-footer text-muted">
         Created at @testCase.CreatedTime
@@ -35,23 +35,30 @@
 {
     <div class="container">
         <div class="row">
-            <div class="col-4">
+            <div class="col-1">
+                <div class="form-group">
+                    <label for="comment" class="fw-bolder">@step.StepOrder</label>
+                </div>
+            </div>
+            <div class="col-3">
                 <div class="form-group">
                     <label for="comment" style="text-align:center;" class="fw-bolder">Action</label>
                     <textarea class="form-control" rows="5" id="action" readonly>@step.Action</textarea>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <div class="form-group">
                     <label for="comment" style="text-align:center;" class="fw-bolder">Data</label>
                     <textarea class="form-control" rows="5" id="data" readonly>@step.Data</textarea>
                 </div>
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <div class="form-group">
                     <label for="comment" style="text-align:center;" class="fw-bolder">Excepted Result</label>
                     <textarea class="form-control" rows="5" id="exceptedResult" readonly>@step.ExceptedResult</textarea>
                 </div>
+            </div>
+            <div class="col-2">
             </div>
         </div>
     </div>

@@ -1,7 +1,9 @@
 ﻿using Business_Layer.Concrete;
+using Data_Access_Layer.Concrete;
 using Data_Access_Layer.EntityFramework;
 using Entity_Layer.Concrete;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 
 namespace ProjectManagementTool.Controllers
 {
@@ -9,6 +11,11 @@ namespace ProjectManagementTool.Controllers
     {
         StepManager stepManager = new StepManager(new EFStepRepo());
         TestCaseManager testCaseManager = new TestCaseManager(new EFTestCaseRepo());
+        private readonly Context _context;
+        public StepController(Context context)
+        {
+            _context= context;
+        }
         public IActionResult GetSteps(int testCaseId)
         {
             ViewData["CheckAddStepButton"] = "true";
@@ -26,14 +33,14 @@ namespace ProjectManagementTool.Controllers
 
         public IActionResult CreateStep()
         {
-            ViewData["Steps"] = stepManager.GetStepsWithTestCase(TestCaseId.testCaseID);
+            ViewData["Steps"] = stepManager.GetStepsWithTestCase(TestCaseId.testCaseID).OrderBy(x => x.StepOrder).ToList<Step>();
             ViewBag.testCase = testCaseManager.GetQueryById(TestCaseId.testCaseID);
             return View();
         }
         [HttpPost]
         public IActionResult CreateStep(Step step)
         {
-            ViewData["Steps"] = stepManager.GetStepsWithTestCase(TestCaseId.testCaseID);
+            ViewData["Steps"] = stepManager.GetStepsWithTestCase(TestCaseId.testCaseID).OrderBy(x => x.StepOrder).ToList<Step>();
             ViewBag.testCase = testCaseManager.GetQueryById(TestCaseId.testCaseID);
             if (step is not null)
             {
@@ -48,7 +55,7 @@ namespace ProjectManagementTool.Controllers
                     
                 step.TestCaseId = TestCaseId.testCaseID;
                 stepManager.AddT(step);
-                return RedirectToAction("GetTestCase", "TestCase", new { id = TestCaseId.testCaseID });
+                return RedirectToAction("CreateStep", "Step");
             }
             return View();
         }
@@ -56,6 +63,7 @@ namespace ProjectManagementTool.Controllers
         public IActionResult UpdateStep(int id)
         {
             var step = stepManager.GetQueryById(id);
+            step.OldStepOrder = step.StepOrder;
             return View(step);
         }
         [HttpPost]
@@ -63,8 +71,32 @@ namespace ProjectManagementTool.Controllers
         {
             if (step is not null)
             {
+                if(step.StepOrder > step.OldStepOrder)
+                {
+                    var steps = stepManager.GetAllQuery().Where(x => x.TestCaseId == step.TestCaseId 
+                                            && x.StepOrder <= step.StepOrder 
+                                            && x.StepOrder > step.OldStepOrder)
+                                                .ToList();
+                    var idList = new List<int>();
+                    idList.AddRange(steps.Select(x => x.StepId));
+                    var stepsId = _context.Steps.Where(f => idList.Contains(f.StepId)).ToList();
+                    stepsId.ForEach(a => a.StepOrder--);
+                    _context.SaveChanges();
+                }
+                else if(step.OldStepOrder > step.StepOrder)
+                {
+                    var steps = stepManager.GetAllQuery().Where(x => x.TestCaseId == step.TestCaseId 
+                                            && x.StepOrder < step.OldStepOrder 
+                                            && x.StepOrder >= step.StepOrder)
+                                                .ToList();
+                    var idList = new List<int>();
+                    idList.AddRange(steps.Select(x => x.StepId));
+                    var stepsId = _context.Steps.Where(f => idList.Contains(f.StepId)).ToList();
+                    stepsId.ForEach(a => a.StepOrder++);
+                    _context.SaveChanges();
+                }
                 stepManager.UpdateT(step);
-                return RedirectToAction("GetTestCase", "TestCase", new { id = step.TestCaseId });
+                return RedirectToAction("CreateStep", "Step");
             }
             return View();
         }
@@ -74,7 +106,7 @@ namespace ProjectManagementTool.Controllers
             if(step is not null)
             {
                 stepManager.DeleteT(step);
-                return RedirectToAction("GetTestCase", "TestCase", new { id = step.TestCaseId });
+                return RedirectToAction("CreateStep", "Step");
             }
             return View();
         }

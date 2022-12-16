@@ -14,9 +14,12 @@
 @using (Html.BeginForm("UpdateColumn", "Column", FormMethod.Post))
 {
     @Html.HiddenFor(x => x.ColumnId, new { @class = "form-control" })
+    @Html.HiddenFor(x => x.OldColumnOrder, new { @class = "form-control" })
     @Html.Label("Column Name")
     @Html.TextBoxFor(x => x.ColumnName, new { @class = "form-control" })
     @Html.ValidationMessageFor(x => x.ColumnName, "", new { @class = "text-danger" })
+    @Html.Label("Column Order")
+    @Html.TextBoxFor(x => x.ColumnOrder, new { @class = "form-control" })
     <br />
     @if (ViewBag.ErrorMessage != null)
     {

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entity_Layer.Concrete
 {
@@ -9,5 +10,7 @@ namespace Entity_Layer.Concrete
         public string? ColumnName { get; set; }
         public int ColumnOrder { get; set; }
         public List<Ticket>? Tickets { get; set; }
+        [NotMapped]
+        public int OldColumnOrder { get; set; }
     }
 }

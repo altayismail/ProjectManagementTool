@@ -1,0 +1,51 @@
+﻿@using Entity_Layer.Concrete
+@model Step
+@{
+    ViewData["Title"] = "Update Step";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Top header -->
+<header class="navbar-toggler">
+    <p class="w3-left text-dark font-weight-bolder" style="font-size:20px">Update Step</p>
+</header>
+<hr />
+
+@using (Html.BeginForm("UpdateStep", "Step", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.StepId, new { @class = "form-control" } )
+    @Html.HiddenFor(model => model.TestCaseId, new { @class = "form-control" })
+    @Html.HiddenFor(model => model.OldStepOrder, new { @class = "form-control" })
+    <div class="container">
+        <div class="row">
+            <div class="col-1">
+                <div class="form-group">
+                    @Html.TextBoxFor(model => model.StepOrder, new { @class = "form-control"})
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="comment" class="fw-bolder">Action</label>
+                    @Html.TextAreaFor(model => model.Action, new {@class="form-control", rows="5"})
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group fw-bolder">
+                    <label for="comment">Data</label>
+                    @Html.TextAreaFor(model => model.Data, new {@class="form-control", rows="5"})
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group fw-bolder">
+                    <label for="comment">Excepted Result</label>
+                    @Html.TextAreaFor(model => model.ExceptedResult, new {@class="form-control", rows="5"})
+                </div>
+            </div>
+            <div class="col-2">
+            </div>
+        </div>
+    </div>
+    <br />
+    <button id="UpdateButton" onclick="return confirm('You are going to update the step, are you sure?');" class="btn card-img btn-lg btn-warning mb-3">Update Step<i class="fa fa-recycle m-1" style="font-size:15px"></i></button>
+}
+

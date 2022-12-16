@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entity_Layer.Concrete
 {
@@ -11,6 +12,8 @@ namespace Entity_Layer.Concrete
         public string? Data { get; set; }
         public string? ExceptedResult { get; set; }
         public int TestCaseId { get; set; }
+        [NotMapped]
+        public virtual int OldStepOrder { get; set; }
         public TestCase? TestCase { get; set; }
     }
 }
