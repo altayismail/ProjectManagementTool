@@ -156,6 +156,9 @@ namespace Data_Access_Layer.Migrations
                     b.Property<DateTime>("UpdatedTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("isTested")
+                        .HasColumnType("bit");
+
                     b.HasKey("TestCaseId");
 
                     b.HasIndex("TestSetId");
@@ -173,11 +176,17 @@ namespace Data_Access_Layer.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TestSetId"), 1L, 1);
 
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TestSetResult")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("TestSetId");
 

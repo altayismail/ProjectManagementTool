@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entity_Layer.Concrete
 {
@@ -9,5 +10,10 @@ namespace Entity_Layer.Concrete
         public string? Name { get; set; }
         public string? TestSetResult { get; set; }
         public List<TestCase>? TestCases { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public DateTime? UpdatedDate { get; set; }
+
+        [NotMapped]
+        public int TestCaseId { get; set; }
     }
 }

@@ -10,6 +10,7 @@ namespace Entity_Layer.Concrete
         public string? Name { get; set; }
         public string? Precondition { get; set; }
         public bool CaseResult { get; set; }
+        public bool isTested { get; set; }
         public List<Step>? Steps { get; set; }
 
         public int TicketId { get; set; }

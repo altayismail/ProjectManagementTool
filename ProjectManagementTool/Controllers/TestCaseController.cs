@@ -11,6 +11,7 @@ namespace ProjectManagementTool.Controllers
         TestCaseManager testCaseManager = new TestCaseManager(new EFTestCaseRepo());
         TicketManager ticketManager = new TicketManager(new EFTicketRepo());   
         UserManager userManager = new UserManager(new EFUserRepo());    
+        StepManager stepManager = new StepManager(new EFStepRepo());
         public IActionResult GetTestCases()
         {
             ViewData["CheckTestCaseButton"] = "true";
@@ -104,6 +105,28 @@ namespace ProjectManagementTool.Controllers
                 return RedirectToAction("GetTestCases", "TestCase");
             }
             return View();
+        }
+
+        public IActionResult AddTestResult(int id)
+        {
+            TestCaseId.testCaseID = id;
+            var testCase = testCaseManager.GetQueryById(id);
+            ViewBag.Steps = stepManager.GetStepsWithTestCase(id);
+            return View(testCase);
+        }
+        [HttpPost]
+        public IActionResult AddTestResult(TestCase testCase)
+        {
+            if(testCase == null)
+            {
+                return View();
+            }
+            else
+            {
+                testCase.isTested = true;
+                testCaseManager.UpdateT(testCase);
+                return RedirectToAction("AddTestResult","TestSet", new { id = testCase.TestSetId});
+            }
         }
     }
 }

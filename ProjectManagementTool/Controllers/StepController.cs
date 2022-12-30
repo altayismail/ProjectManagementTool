@@ -3,7 +3,6 @@ using Data_Access_Layer.Concrete;
 using Data_Access_Layer.EntityFramework;
 using Entity_Layer.Concrete;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 
 namespace ProjectManagementTool.Controllers
 {

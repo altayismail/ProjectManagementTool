@@ -1,0 +1,58 @@
+﻿@using Entity_Layer.Concrete
+@model List<TestSet>
+@{
+    ViewData["Title"] = "Get Test Set";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Search<i class="icon-search2 ml-2"></i></span>
+    </div>
+    <input type="text" id="testSetFilter" class="form-control" placeholder="Search for Test Set" aria-label="Username" aria-describedby="basic-addon1">
+</div>
+<hr />
+
+<table class="table table-bordered table-striped p-5">
+    <thead>
+        <tr>
+            <th>Test Set Id</th>
+            <th>Test Set Title</th>
+            <th>Test Set Result</th>
+            <th>Detail</th>
+            <th>Add Test Result</th>
+        </tr>
+    </thead>
+    <tbody id="testSetTable">
+        @foreach (var testSet in Model)
+        {
+            <tr>
+                <td>@testSet.TestSetId</td>
+                <td>@testSet.Name</td>
+                <td>
+                    @if (@testSet.TestSetResult == null)
+                    {
+                        <p class="text-warning">Untested</p>
+                    }
+                    else
+                    {
+                        <p class="text-info">@testSet.TestSetResult</p>
+                    }
+                </td>
+                <td><a href="/TestSet/GetTestSet/@testSet.TestSetId" id="DetailButton" class="btn btn-outline-primary text-dark">Detail<i class="fa fa-info-circle m-1" style="font-size:15px"></i></a></td>
+                <td><a href="/TestSet/AddTestResult/@testSet.TestSetId" id="AddButton" class="btn btn-outline-success text-dark">Add Test Result<i class="fa fa-plus m-1" style="font-size:15px"></i></a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script>
+    $(document).ready(function () {
+        $("#testSetFilter").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#testSetTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+            });
+        });
+    });
+</script>
+

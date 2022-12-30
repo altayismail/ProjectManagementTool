@@ -1,10 +1,9 @@
 ﻿@using Entity_Layer.Concrete
-@model List<TestCase>
+@model TestSet
 @{
-    ViewData["Title"] = "TestCases";
+    ViewData["Title"] = "Add Test Result";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
 <div class="input-group mb-3">
     <div class="input-group-prepend">
@@ -14,6 +13,10 @@
 </div>
 <hr />
 
+<div class="alert alert-info" role="alert">
+    Please click run button of the test case that you want add test result!
+</div>
+
 <table class="table table-bordered table-striped p-5">
     <thead>
         <tr>
@@ -22,11 +25,12 @@
             <th>Related Ticket</th>
             <th>Created Date</th>
             <th>Test Case Writer</th>
-            <th>Detail</th>
+            <th>Test Result</th>
+            <th>Run Case</th>
         </tr>
     </thead>
     <tbody id="testCaseTable">
-        @foreach (var testCase in Model)
+        @foreach (var testCase in ViewBag.TestCases as List<TestCase>)
         {
             <tr>
                 <td>@testCase.TestCaseIdentifier</td>
@@ -34,7 +38,24 @@
                 <td>@testCase.Ticket.TicketIdentifier</td>
                 <td>@testCase.CreatedTime.ToShortDateString()</td>
                 <td>@testCase.TestCaseWriter</td>
-                <td><a href="/TestCase/GetTestCase/@testCase.TestCaseId" id="DetailButton" class="btn btn-outline-primary text-dark">Detail<i class="fa fa-info-circle m-1" style="font-size:15px"></i></a></td>
+                <td>
+                    @if(testCase.isTested == false)
+                    {
+                        <p class="text-warning">Untested</p>
+                    }
+                    else
+                    {
+                        if(testCase.CaseResult == true)
+                        {
+                            <p class="text-success">Success</p>
+                        }
+                        else
+                        {
+                            <p class="text-danger">Fail</p>
+                        }
+                    }
+                </td>
+                <td><a href="/TestCase/AddTestResult/@testCase.TestCaseId" id="AddButton" class="btn btn-outline-success text-dark">Run<i class="fa fa-running m-1" style="font-size:15px"></i></a></td>
             </tr>
         }
     </tbody>

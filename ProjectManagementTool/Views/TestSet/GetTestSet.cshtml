@@ -1,10 +1,28 @@
 ﻿@using Entity_Layer.Concrete
-@model List<TestCase>
+@model TestSet
 @{
-    ViewData["Title"] = "TestCases";
+    ViewData["Title"] = "Test Set";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="card text-center">
+    <div class="card-header">
+        <h5 class="card-title" style="text-align:center;">@Model.Name</h5>
+    </div>
+    <div class="card-body">
+        <a href="/TestSet/AddTestCaseforTestSet/@Model.TestSetId" class="btn btn-primary card-img">Add Test Case<i class="fa fa-plus m-1" style="font-size:15px"></i></a>
+    </div>
+    <div class="card-footer text-muted">
+        Created at @Model.CreatedDate
+    </div>
+    @if (Model.UpdatedDate > Model.CreatedDate)
+    {
+        <div class="card-footer text-muted">
+            Updated at @Model.UpdatedDate
+        </div>
+    }
+</div>
+<hr />
 
 <div class="input-group mb-3">
     <div class="input-group-prepend">
@@ -22,11 +40,11 @@
             <th>Related Ticket</th>
             <th>Created Date</th>
             <th>Test Case Writer</th>
-            <th>Detail</th>
+            <th>Add Result</th>
         </tr>
     </thead>
     <tbody id="testCaseTable">
-        @foreach (var testCase in Model)
+        @foreach (var testCase in ViewData["TestCases"] as List<TestCase>)
         {
             <tr>
                 <td>@testCase.TestCaseIdentifier</td>
@@ -34,7 +52,7 @@
                 <td>@testCase.Ticket.TicketIdentifier</td>
                 <td>@testCase.CreatedTime.ToShortDateString()</td>
                 <td>@testCase.TestCaseWriter</td>
-                <td><a href="/TestCase/GetTestCase/@testCase.TestCaseId" id="DetailButton" class="btn btn-outline-primary text-dark">Detail<i class="fa fa-info-circle m-1" style="font-size:15px"></i></a></td>
+                <td><a href="/TestCase/AddTestResult/@testCase.TestSetId" id="AddButton" class="btn btn-outline-success text-dark">Add Test Result<i class="fa fa-plus m-1" style="font-size:15px"></i></a></td>
             </tr>
         }
     </tbody>

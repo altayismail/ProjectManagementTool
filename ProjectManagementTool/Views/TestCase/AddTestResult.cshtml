@@ -1,0 +1,98 @@
+﻿@using Entity_Layer.Concrete
+@model TestCase
+@{
+    ViewData["Title"] = "Add Test Result to Test Case";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Step> steps = ViewBag.Steps as List<Step>;
+}
+
+<div class="card text-center">
+    <div class="card-header">
+        <h5 class="card-title" style="text-align:center;">@Model.Name</h5>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title" style="text-align:left;">Creater: @Model.TestCaseWriter</h5>
+        <h5 class="card-text" style="text-align:left;">Related Ticket: @Model.TestCaseIdentifier</h5>
+        <h5 class="card-text card-header" style="text-align:left;">Precondition: @Model.Precondition</h5>
+    </div>
+    <div class="card-footer text-muted">
+        Created at @Model.CreatedTime
+    </div>
+    @if (@Model.UpdatedTime != null)
+    {
+        <div class="card-footer text-muted">
+            Updated at @Model.UpdatedTime
+        </div>
+    }
+</div>
+<hr />
+
+@foreach (var step in steps)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <div class="form-group">
+                    <label for="comment" class="fw-bolder">@step.StepOrder</label>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="comment" style="text-align:center;" class="fw-bolder">Action</label>
+                    <textarea class="form-control" rows="5" id="action" readonly>@step.Action</textarea>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="comment" style="text-align:center;" class="fw-bolder">Data</label>
+                    <textarea class="form-control" rows="5" id="data" readonly>@step.Data</textarea>
+                </div>
+            </div>
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="comment" style="text-align:center;" class="fw-bolder">Excepted Result</label>
+                    <textarea class="form-control" rows="5" id="exceptedResult" readonly>@step.ExceptedResult</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("AddTestResult", "TestCase", FormMethod.Post))
+{
+    @Html.HiddenFor(model => model.TestCaseId)
+    @Html.HiddenFor(model => model.TicketId)
+    @Html.HiddenFor(model => model.TestCaseIdentifier)
+    @Html.HiddenFor(model => model.TestCaseWriter)
+    @Html.HiddenFor(model => model.CreatedTime)
+    @Html.HiddenFor(model => model.Name)
+    @Html.HiddenFor(model => model.Precondition)
+    @Html.HiddenFor(model => model.TestCaseIdentifier)
+    @Html.HiddenFor(model => model.TestSetId)
+    @Html.HiddenFor(model => model.UpdatedTime)
+    @Html.HiddenFor(model => model.TestType)
+
+    <div class="container">
+        <div class="row">
+            <div class="col-3"></div>
+            <div class="col-6">
+                <div class="wrapper mt-4 mb-4" style="text-align:center;">
+                    <input type="radio" name="CaseResult" value="True" id="option-1" checked>
+                    <input type="radio" name="CaseResult" value="False" id="option-2">
+                    <label for="option-1" class="option option-1">
+                        <div class="dot"></div>
+                        <span>Success</span>
+                    </label>
+                    <label for="option-2" class="option option-2">
+                        <div class="dot"></div>
+                        <span>Fail</span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-3"></div>
+        </div>
+    </div>
+    <br />
+    <button id="CreateButton" class="btn card-img btn-lg btn-success mb-3">Add Test Result<i class="fa fa-plus m-1" style="font-size:15px"></i></button>
+}
+
