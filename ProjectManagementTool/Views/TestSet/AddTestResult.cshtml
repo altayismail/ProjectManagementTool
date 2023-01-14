@@ -22,7 +22,7 @@
         <tr>
             <th>Test Case Identifier</th>
             <th>Test Case Title</th>
-            <th>Related Ticket</th>
+            <th>Related Test</th>
             <th>Created Date</th>
             <th>Test Case Writer</th>
             <th>Test Result</th>
@@ -47,15 +47,24 @@
                     {
                         if(testCase.CaseResult == true)
                         {
-                            <p class="text-success">Success</p>
+                            <p class="text-success">Success<i class="fa fa-check m-1" style="font-size:24px"></i></p>
                         }
                         else
                         {
-                            <p class="text-danger">Fail</p>
+                            <p class="text-danger">Fail<span style='font-size:24px;'>&#10005;</span></p>
                         }
                     }
                 </td>
-                <td><a href="/TestCase/AddTestResult/@testCase.TestCaseId" id="AddButton" class="btn btn-outline-success text-dark">Run<i class="fa fa-running m-1" style="font-size:15px"></i></a></td>
+                <td>
+                    @if(testCase.isTested == false)
+                    {
+                        <a href="/TestCase/AddTestResult/@testCase.TestCaseId" id="AddButton" class="btn btn-outline-success text-dark">Run<i class="fa fa-running m-1" style="font-size:15px"></i></a>
+                    }
+                    @if(testCase.isTested == true)
+                    {
+                        <a href="/TestCase/AddTestResult/@testCase.TestCaseId" id="AddButton" class="btn btn-outline-warning text-dark">Update Test Run<i class="fa fa-running m-1" style="font-size:15px"></i></a>
+                    }
+                </td>
             </tr>
         }
     </tbody>

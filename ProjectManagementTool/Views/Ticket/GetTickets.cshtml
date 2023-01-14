@@ -1,7 +1,7 @@
 ﻿@using Entity_Layer.Concrete
 @model List<Ticket>
 @{
-    ViewData["Title"] = "Tickets";
+    ViewData["Title"] = "Tests";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,16 +9,16 @@
     <div class="input-group-prepend">
         <span class="input-group-text" id="basic-addon1">Search<i class="icon-search2 ml-2"></i></span>
     </div>
-    <input type="text" id="ticketFilter" class="form-control" placeholder="Search for Tickets" aria-label="Username" aria-describedby="basic-addon1">
+    <input type="text" id="ticketFilter" class="form-control" placeholder="Search for Tests" aria-label="Username" aria-describedby="basic-addon1">
 </div>
 <hr />
 
 <table class="table table-bordered table-striped p-5">
     <thead>
         <tr>
-            <th>Ticket Identifier</th>
-            <th>Ticket Column</th>
-            <th>Ticket Title</th>
+            <th>Test Identifier</th>
+            <th>Test Column</th>
+            <th>Test Title</th>
             <th>Assignee</th>
             <th>Priority</th>
             <th>Update</th>

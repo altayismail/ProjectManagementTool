@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Get Test Set";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<TestCase> testCases = ViewData["TestCases"] as List<TestCase>;
 }
 
 <div class="input-group mb-3">
@@ -30,13 +31,13 @@
                 <td>@testSet.TestSetId</td>
                 <td>@testSet.Name</td>
                 <td>
-                    @if (@testSet.TestSetResult == null)
+                    @if (testCases.Any(x => x.CaseResult == false && x.TestSetId == testSet.TestSetId))
                     {
-                        <p class="text-warning">Untested</p>
+                        <p><span class="text-success">Success: @testCases.Where(x => x.CaseResult == true && x.TestSetId == testSet.TestSetId).Count()</span> | <span class="text-danger">Fail: @testCases.Where(x => x.CaseResult == false && x.TestSetId == testSet.TestSetId).Count()</span></p>
                     }
                     else
                     {
-                        <p class="text-info">@testSet.TestSetResult</p>
+                        <p class="text-success">All Success<i class="fa fa-check m-1" style="font-size:24px"></i></p>
                     }
                 </td>
                 <td><a href="/TestSet/GetTestSet/@testSet.TestSetId" id="DetailButton" class="btn btn-outline-primary text-dark">Detail<i class="fa fa-info-circle m-1" style="font-size:15px"></i></a></td>

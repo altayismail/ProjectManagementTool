@@ -5,6 +5,7 @@ using Entity_Layer.Concrete;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Text.RegularExpressions;
 
 namespace ProjectManagementTool.Controllers
 {
@@ -14,6 +15,7 @@ namespace ProjectManagementTool.Controllers
         UserManager userManager = new UserManager(new EFUserRepo());
         ColumnManager columnManager = new ColumnManager(new EFColumnRepo());
         ProjectManager projetManager = new ProjectManager(new EFProjectRepo());
+        NotificationManager notificationManager = new NotificationManager(new EFNotificationRepo());
 
         public IActionResult GetTickets()
         {
@@ -98,6 +100,15 @@ namespace ProjectManagementTool.Controllers
                 ticket.Reporter = userManager.GetAllQuery().Where(x => x.Email == User.Identity.Name).Single().Firstname + " " +
                     userManager.GetAllQuery().Where(x => x.Email == User.Identity.Name).Single().LastName;
                 ticketManager.AddT(ticket);
+                Notification notification = new Notification()
+                {
+                    isRead = false,
+                    isUpdated = false,
+                    UserId = ticket.UserId,
+                    NotificationShortut = ticket.TicketIdentifier,
+                    NotificationTarget = $"/Ticket/GetTicket/{int.Parse(Regex.Match(ticket.TicketIdentifier, @"\d+").Value)}"
+                };
+                notificationManager.AddT(notification);
                 return RedirectToAction("GetColumns", "Column");
             }
             else
@@ -175,6 +186,15 @@ namespace ProjectManagementTool.Controllers
             {
                 ticket.UpdatedTime = DateTime.Now;
                 ticketManager.UpdateT(ticket);
+                Notification notification = new Notification()
+                {
+                    isRead = false,
+                    UserId = ticket.UserId,
+                    NotificationShortut = ticket.TicketIdentifier,
+                    NotificationTarget = $"/Ticket/GetTicket/{int.Parse(Regex.Match(ticket.TicketIdentifier, @"\d+").Value)}",
+                    isUpdated = true
+                };
+                notificationManager.AddT(notification);
                 return RedirectToAction("GetTickets");
             }
             else

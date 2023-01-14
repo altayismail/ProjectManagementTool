@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Entity_Layer.Concrete
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -110,6 +111,12 @@
             background-color: #f44336; /* Red */
             margin-bottom: 1px;
         }
+
+        #testreports {
+            top: 300px;
+            background-color: black; /* Red */
+            margin-bottom: 1px;
+        }
     </style>
     <style>
         import url('https://fonts.googleapis.com/css?family=Lato:400,500,600,700&display=swap');
@@ -196,10 +203,12 @@
     <header>
         <!-- Sidebar -->
         <div id="mySidenav" class="sidenav" style="z-index:5; position:relative;">
-            <a href=/Column/GetColumns id="projects">Project  <i class='fas fa-project-diagram' style='font-size:15px'></i></a>
-            <a href="/Ticket/GetTickets" id="tickets">Tickets  <i class="fa fa-align-justify" style="font-size:15px"></i></a>
-            <a href="/TestCase/GetTestCases" id="testcases">Test Cases  <i class="fa fa-check" style="font-size:15px"></i></a>
-            <a href="/TestSet/GetTestSets" id="testsets">Test Sets  <i class="fa fa-check" style="font-size:15px"></i><i class="fa fa-check" style="font-size:15px"></i></a>
+            <a href=/Column/GetColumns id="projects">Project<i class='fas fa-project-diagram p-1' style='font-size:15px; margin-left:82px;'></i></a>
+            <a href="/Ticket/GetTickets" id="tickets">Tests<i class="fa fa-align-justify p-1" style="font-size:15px; margin-left:103px;"></i></a>
+            <a href="/TestCase/GetTestCases" id="testcases">Test Cases<i class="fa fa-check p-1" style="font-size:15px; margin-left:56px;"></i></a>
+            <a href="/TestSet/GetTestSets" id="testsets">Test Sets<i class="fa fa-check" style="font-size:15px; margin-left:63px;"></i><i class="fa fa-check" style="font-size:15px"></i></a>
+            <a href="/TestSet/GetTestSets" id="testreports">Reports<i style="font-size:15px; margin-left:77px;" class="fa p-1">&#xf200;</i></a>
+
         </div>
         <!-- Sidebar -->
         <!-- Navbar -->
@@ -210,12 +219,6 @@
                 <a class="nav-brand text-white" style="font-size:24px;font-family:Arial, Helvetica, sans-serif; text-decoration:none; margin-right:25px; margin-left:25px;" href="/Column/GetColumns">
                     <i class="fa fa-check" style="font-size:24px; margin-right:15px;"></i>Test Management Tool
                 </a>
-                <!-- Search form -->
-                <form class="d-none d-md-flex input-group w-auto my-auto">
-                    <input autocomplete="off" type="search" class="form-control rounded"
-                           placeholder='Search' />
-                    <span class="input-group-text border-0"><i class="fas fa-search"></i></span>
-                </form>
 
             @{
                 if(ViewData["CheckColumnButton"] == "true")
@@ -228,7 +231,7 @@
                 if (ViewData["CheckTicketButton"] == "true")
                 {
                     <a class="btn btn-primary text-white" href="/Ticket/CreateTicket" style="margin-left:25px;">
-                        Add Ticket<i class="fa fa-plus m-1" style="font-size:15px"></i>
+                        Add Test<i class="fa fa-plus m-1" style="font-size:15px"></i>
                     </a>
                 }
 
@@ -250,23 +253,43 @@
                 {
                     <a class="btn btn-primary text-white" href="/TestSet/CreateTestSet/@ViewBag.testSetId" style="margin-left:25px;">
                         Add Test Set<i class="fa fa-plus m-1" style="font-size:15px"></i>
-                    </a>
+                        </a>
+                    }
                 }
-            }
 
                 <!-- Right links -->
                 <ul class="navbar-nav ms-auto d-flex flex-row">
                     <!-- Notification dropdown -->
-                    <li class="nav-item dropdown">
-                        <div class="dropdown nav-link dropdown-toggle hidden-arrow text-white" style="float:right;">
-                            <i class="fas fa-bell text-white" style='font-size:24px'></i>
-                            <span class="badge rounded-pill badge-notification bg-danger">1</span>
-                            <div class="dropdown-content bg-dark mt-1" style="right:0;">
-                                <a class="text-white" id="NO">Notification 1</a>
-                                <a class="text-white" id="NT">Notification 2</a>
+                    @if(ViewData["Notifications"] != null)
+                    {
+                        <li class="nav-item dropdown">
+                            <div class="dropdown nav-link dropdown-toggle hidden-arrow text-white" style="float:right;">
+                                <i class="fas fa-bell text-white" style='font-size:24px'></i>
+                                <span class="badge rounded-pill badge-notification bg-danger">@ViewData["Unreads"]</span>
+                                <div class="dropdown-content bg-dark mt-1" style="right:0;">
+                                    @foreach (var notification in ((List<Notification>)ViewData["Notifications"]))
+                                    {
+                                        if(notification.isRead == false)
+                                        {
+                                            if(notification.isUpdated == false)
+                                            {
+                                                <a href="@notification.NotificationTarget" class="text-white" id="NO">@notification.NotificationShortut<i class="fa fa-circle m-1" style="font-size:15px;color:red"></i></a>
+                                            }
+                                            else
+                                            {
+                                                <a href="@notification.NotificationTarget" class="text-white" id="NO">@notification.NotificationShortut<i class="fa fa-circle m-1" style="font-size:15px;color:yellow"></i></a>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <a href="@notification.NotificationTarget" class="text-white" id="NO">@notification.NotificationShortut</a>
+                                        }
+                                    }
+                                </div>
                             </div>
-                        </div>
-                    </li>
+                        </li>
+                    }
+
                     <!-- User Icon dropdown--> 
                     <li class="nav-item dropdown">
                         <div class="dropdown nav-link dropdown-toggle hidden-arrow text-white" style="float:right;">

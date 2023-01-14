@@ -2,9 +2,9 @@
 {
     public enum TicketTypes
     {
-        Task,
+        Test,
         Bug,
         TestCase,
-        Story,
+        TestSet,
     }
 }

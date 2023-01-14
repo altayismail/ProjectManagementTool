@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Entity_Layer.Concrete
 {
@@ -11,8 +12,9 @@ namespace Entity_Layer.Concrete
 
         public int UserId { get; set; }
         public User? User { get; set; }
-
+        [NotMapped]
         public bool IsTester { get; set; }
+        [NotMapped]
         public string? Tester { get; set; }
 
         public int Priority { get; set; }

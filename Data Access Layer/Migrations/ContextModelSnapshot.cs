@@ -72,6 +72,36 @@ namespace Data_Access_Layer.Migrations
                     b.ToTable("Columns");
                 });
 
+            modelBuilder.Entity("Entity_Layer.Concrete.Notification", b =>
+                {
+                    b.Property<int>("NotificationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NotificationId"), 1L, 1);
+
+                    b.Property<string>("NotificationShortut")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NotificationTarget")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("isRead")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("isUpdated")
+                        .HasColumnType("bit");
+
+                    b.HasKey("NotificationId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Notification");
+                });
+
             modelBuilder.Entity("Entity_Layer.Concrete.Project", b =>
                 {
                     b.Property<int>("ProjectId")
@@ -213,9 +243,6 @@ namespace Data_Access_Layer.Migrations
                     b.Property<DateTime>("EstimatedTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsTester")
-                        .HasColumnType("bit");
-
                     b.Property<int>("Priority")
                         .HasColumnType("int");
 
@@ -223,9 +250,6 @@ namespace Data_Access_Layer.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Reporter")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Tester")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TicketIdentifier")
@@ -286,6 +310,17 @@ namespace Data_Access_Layer.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Entity_Layer.Concrete.Notification", b =>
+                {
+                    b.HasOne("Entity_Layer.Concrete.User", "User")
+                        .WithMany("Notifications")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Entity_Layer.Concrete.Step", b =>
@@ -366,6 +401,8 @@ namespace Data_Access_Layer.Migrations
 
             modelBuilder.Entity("Entity_Layer.Concrete.User", b =>
                 {
+                    b.Navigation("Notifications");
+
                     b.Navigation("Tickets");
                 });
 #pragma warning restore 612, 618

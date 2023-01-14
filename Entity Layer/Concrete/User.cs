@@ -14,5 +14,6 @@ namespace Entity_Layer.Concrete
         public string? Password { get; set; }
         public List<Ticket>? Tickets { get; set; }
         public bool isAdmin { get; set; } = false;
+        public List<Notification>? Notifications { get; set; }
     }
 }

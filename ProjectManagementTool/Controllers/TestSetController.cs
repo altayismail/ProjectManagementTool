@@ -1,6 +1,7 @@
 ﻿using Business_Layer.Concrete;
 using Data_Access_Layer.Concrete;
 using Data_Access_Layer.EntityFramework;
+using DocumentFormat.OpenXml.Office2010.Excel;
 using Entity_Layer.Concrete;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -15,6 +16,7 @@ namespace ProjectManagementTool.Controllers
         {
             ViewData["CheckAddTestSetButton"] = "true";
             var testSets = testSetManager.GetAllQuery();
+            ViewData["TestCases"] = testCaseManager.GetAllQueryWithTicket();
             return View(testSets);
         }
 

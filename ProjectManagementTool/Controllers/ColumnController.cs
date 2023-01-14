@@ -12,6 +12,8 @@ namespace ProjectManagementTool.Controllers
     {
         ColumnManager columnManager = new ColumnManager(new EFColumnRepo());
         TicketManager ticketManager = new TicketManager(new EFTicketRepo());
+        NotificationManager notificationManager = new NotificationManager(new EFNotificationRepo());
+        UserManager userManager = new UserManager(new EFUserRepo());
         private readonly Context _context;
         public ColumnController(Context context)
         {
@@ -19,6 +21,15 @@ namespace ProjectManagementTool.Controllers
         }
         public IActionResult GetColumns()
         {
+            var user = userManager.GetAllQuery().Where(x => x.Email == User.Identity.Name).Single();
+            var notifications = notificationManager.GetAllQuery().Where(x => x.UserId == user.UserId);
+            ViewData["Notifications"] = notifications.OrderBy(x => x.UserId).Take(5).ToList();
+            ViewData["Unreads"] = notifications.Where(x => x.isRead == false).Count();
+            if (notifications.Count(x => x.isRead == false) > 5)
+            {
+                ViewData["Notifications"] = notifications.Where(x => x.isRead == false).ToList();
+            }
+
             ViewData["CheckColumnButton"] = "true";
             ViewData["CheckTicketButton"] = "true";
             ViewBag.tickets = ticketManager.GetAllTicketWithColumnAndAssignee();
