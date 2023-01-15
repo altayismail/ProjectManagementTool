@@ -9,6 +9,7 @@ namespace Entity_Layer.Concrete
         public int TestSetId { get; set; }
         public string? Name { get; set; }
         public string? TestSetResult { get; set; }
+        public string? TestType { get; set; }
         public List<TestCase>? TestCases { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }

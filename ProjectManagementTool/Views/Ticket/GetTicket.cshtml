@@ -20,6 +20,28 @@
     </div>
     <hr />
     <div class="form-group row">
+        <label for="inputPassword3" class="col-sm-2 col-form-label fw-bolder">Priority:</label>
+        <div class="col-sm-10">
+            @if (Model.Priority == 1)
+            {
+                <input type="text" readonly class="form-control-plaintext text-primary" id="staticEmail2" value="Not Critical">
+            }
+            else if (Model.Priority == 2)
+            {
+                <input type="text" readonly class="form-control-plaintext text-success" id="staticEmail2" value="Normal">
+            }
+            else if (Model.Priority == 3)
+            {
+                <input type="text" readonly class="form-control-plaintext text-warning" id="staticEmail2" value="Critical">
+            }
+            else if (Model.Priority == 4)
+            {
+                <input type="text" readonly class="form-control-plaintext text-danger" id="staticEmail2" value="Highest Priority">
+            }
+        </div>
+    </div>
+    <hr />
+    <div class="form-group row">
         <label for="inputPassword3" class="col-sm-2 col-form-label fw-bolder">Situation:</label>
         <div class="col-sm-10">
             <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="@Model.Column.ColumnName">

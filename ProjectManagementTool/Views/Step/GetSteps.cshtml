@@ -22,7 +22,7 @@
     <div class="card-footer text-muted">
         Created at @testCase.CreatedTime
     </div>
-    @if (@testCase.UpdatedTime != null)
+    @if (@testCase.UpdatedTime.Year != 0001)
     {
         <div class="card-footer text-muted">
             Updated at @testCase.UpdatedTime

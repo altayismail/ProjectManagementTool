@@ -32,7 +32,7 @@
     @Html.TextAreaFor(x => x.Description, new { @class = "form-control" })
     @Html.ValidationMessageFor(x => x.Description, "", new { @class = "text-danger" })
     <br />
-    @Html.Label("Priority")
+    @Html.Label("Priority (1: Not Critical and 4: Highest Priority)")
     @Html.TextBoxFor(x => x.Priority, new { @class = "form-control" })
     @Html.ValidationMessageFor(x => x.Priority, "", new { @class = "text-danger" })
     <br />

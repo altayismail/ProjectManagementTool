@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewData["Title"] = "Monthly Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                type: "GET",
+                url: "/Report/GetMonthlyData",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (report) {
+                    console.log(report);
+                    google.charts.load("current", { packages: ["corechart"] });
+                    google.charts.setOnLoadCallback(drawChart);
+                    function drawChart() {
+                        var data = google.visualization.arrayToDataTable([
+                            ['Result', 'Count'],
+                            ['Success', report[0].count],
+                            ['Fail', report[1].count]
+                        ]);
+
+                        var options = {
+                            title: 'Monthly Test Result',
+                            is3D: true,
+                        };
+
+                        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+                        chart.draw(data, options);
+                    }
+                }, //End of AJAX Success function
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <div class="btn-toolbar mb-3" role="toolbar" aria-label="Toolbar with button groups" style="margin-left:240px;">
+        <div class="btn-group mr-2 btn-group-lg" role="group" aria-label="First group">
+            <a href="/Report/GetDailyReport" class="btn btn-outline-primary">Daily Test Report</a>
+            <a href="/Report/GetMonthlyReport" class="btn btn-outline-success">Monthly Test Report</a>
+            <a href="/Report/GetYearlyReport" class="btn btn-outline-warning">Yearly Test Report</a>
+            <a href="/Report/GetTesterReport" class="btn btn-outline-info">Tester Report</a>
+        </div>
+    </div>
+    <div id="piechart_3d" style="text-align:center; width:1224px; height:600px;"></div>
+</body>
+</html>
+

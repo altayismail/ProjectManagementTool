@@ -31,13 +31,25 @@
                 <td>@testSet.TestSetId</td>
                 <td>@testSet.Name</td>
                 <td>
-                    @if (testCases.Any(x => x.CaseResult == false && x.TestSetId == testSet.TestSetId))
+                    @if(testCases.Where(x => x.TestSetId == testSet.TestSetId).Count() == 0)
                     {
-                        <p><span class="text-success">Success: @testCases.Where(x => x.CaseResult == true && x.TestSetId == testSet.TestSetId).Count()</span> | <span class="text-danger">Fail: @testCases.Where(x => x.CaseResult == false && x.TestSetId == testSet.TestSetId).Count()</span></p>
+                        <p class="text-info">No Test Cases</p>
                     }
-                    else
+                    else if(testCases.Where(x => x.TestSetId == testSet.TestSetId).Any(x => x.isTested == false) && testCases.Where(x => x.TestSetId == testSet.TestSetId).Count() == 0)
+                    {
+                        <p class="text-info">Untested</p>
+                    }
+                    else if(!(testCases.Where(x => x.TestSetId == testSet.TestSetId).Any(x => x.CaseResult == false)))
                     {
                         <p class="text-success">All Success<i class="fa fa-check m-1" style="font-size:24px"></i></p>
+                    }
+                    else if(!(testCases.Where(x => x.TestSetId == testSet.TestSetId).Any(x => x.CaseResult == true)))
+                    {
+                        <p class="text-danger">All Fail<span style='font-size:24px;' class="p-1">&#10005;</span></p>
+                    }
+                    else if (testCases.Where(x => x.TestSetId == testSet.TestSetId).Any(x => x.CaseResult == false))
+                    {
+                        <p><span class="text-success">Success: @testCases.Where(x => x.CaseResult == true && x.TestSetId == testSet.TestSetId).Count()</span> | <span class="text-danger">Fail: @testCases.Where(x => x.CaseResult == false && x.TestSetId == testSet.TestSetId).Count()</span></p>
                     }
                 </td>
                 <td><a href="/TestSet/GetTestSet/@testSet.TestSetId" id="DetailButton" class="btn btn-outline-primary text-dark">Detail<i class="fa fa-info-circle m-1" style="font-size:15px"></i></a></td>

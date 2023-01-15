@@ -92,7 +92,7 @@ namespace ProjectManagementTool.Controllers
                 }
                 catch (Exception)
                 {
-                    ticket.TicketIdentifier = ticket.TicketIdentifier = getFirstLetters(projetManager.GetAllQuery().Single().ProjectName) + (1).ToString();
+                    ticket.TicketIdentifier = getFirstLetters(projetManager.GetAllQuery().Single().ProjectName) + (1).ToString();
                 }
        
                 
@@ -194,7 +194,7 @@ namespace ProjectManagementTool.Controllers
                     NotificationTarget = $"/Ticket/GetTicket/{int.Parse(Regex.Match(ticket.TicketIdentifier, @"\d+").Value)}",
                     isUpdated = true
                 };
-                notificationManager.AddT(notification);
+                notificationManager.UpdateT(notification);
                 return RedirectToAction("GetTickets");
             }
             else

@@ -215,6 +215,9 @@ namespace Data_Access_Layer.Migrations
                     b.Property<string>("TestSetResult")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("TestType")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("UpdatedDate")
                         .HasColumnType("datetime2");
 
