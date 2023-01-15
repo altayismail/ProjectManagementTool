@@ -21,6 +21,7 @@
     @Html.HiddenFor(model => model.CaseResult, new { @class = "form-control" } )
     @Html.HiddenFor(model => model.TestType, new { @class = "form-control" } )
     @Html.HiddenFor(model => model.TestSetId, new { @class = "form-control" } )
+    @Html.HiddenFor(model => model.isTested, new { @class = "form-control" } )
     @Html.LabelFor(model => model.Name, "Title")
     @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
